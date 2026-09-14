@@ -1174,6 +1174,26 @@ export default {
     'Quoted message not loaded yet': 'Il messaggio citato non è ancora stato caricato',
     Video: 'Video',
     Audio: 'Audio',
-    'Group message from': 'Messaggio dal gruppo'
+    'Group message from': 'Messaggio dal gruppo',
+    'Follow user privately': 'Segui in privato',
+    'Follow user publicly': 'Segui in pubblico',
+    'Follow privately by default': 'Segui in privato per impostazione predefinita',
+    'New follows will not appear on your public follow list': 'I nuovi follow non compariranno nella lista pubblica',
+    'Convert public follows to private': 'Converti i follow pubblici in privati',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Sposta tutte le persone che segui in pubblico nella lista privata crittografata',
+    'Convert public follows to private?': 'Convertire i follow pubblici in privati?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Nasconderà la tua lista pubblica attuale. Potrai riportare i singoli follow in pubblico in seguito.',
+    'Failed to follow privately': 'Impossibile seguire in privato',
+    'Failed to follow publicly': 'Impossibile seguire in pubblico',
+    'Failed to unfollow': 'Impossibile smettere di seguire',
+    'Failed to switch to public follow': 'Impossibile passare al follow pubblico',
+    'Failed to switch to private follow': 'Impossibile passare al follow privato',
+    'Failed to convert public follows to private': 'Impossibile convertire i follow pubblici',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Impossibile salvare i follow privati perché questa lista usa ancora una mappa relay NIP-02 legacy nel contenuto.',
+    'Following privately': 'Segui in privato',
+    'No public follows to convert': 'Nessun follow pubblico da convertire',
+    'Converted {{count}} public follows to private': 'Convertiti {{count}} follow pubblici in privati',
+    'Private follows': 'Follow privati',
+    'Convert': 'Converti'
   }
 }

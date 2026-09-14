@@ -1170,6 +1170,26 @@ export default {
     'Quoted message not loaded yet': 'Az idézett üzenet még nem töltődött be',
     Video: 'Videó',
     Audio: 'Hang',
-    'Group message from': 'Csoportüzenet innen'
+    'Group message from': 'Csoportüzenet innen',
+    'Follow user privately': 'Követés titokban',
+    'Follow user publicly': 'Követés nyilvánosan',
+    'Follow privately by default': 'Alapértelmezetten titkos követés',
+    'New follows will not appear on your public follow list': 'Az új követések nem jelennek meg a nyilvános listádon',
+    'Convert public follows to private': 'Nyilvános követések titkosítása',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Minden nyilvánosan követett fiók áthelyezése a titkosított privát listára',
+    'Convert public follows to private?': 'Nyilvános követések titkosítása?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'A jelenlegi nyilvános követési listád rejtve marad mások elől. Később egyesével visszaállíthatod őket nyilvánosra.',
+    'Failed to follow privately': 'A titkos követés sikertelen',
+    'Failed to follow publicly': 'A nyilvános követés sikertelen',
+    'Failed to unfollow': 'A követés megszüntetése sikertelen',
+    'Failed to switch to public follow': 'Nem sikerült nyilvános követésre váltani',
+    'Failed to switch to private follow': 'Nem sikerült titkos követésre váltani',
+    'Failed to convert public follows to private': 'A nyilvános követések átalakítása sikertelen',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'A titkos követések nem menthetők, mert a lista tartalma még egy régi NIP-02 relétérkép.',
+    'Following privately': 'Titkos követés',
+    'No public follows to convert': 'Nincs átalakítható nyilvános követés',
+    'Converted {{count}} public follows to private': '{{count}} nyilvános követés titkosítva',
+    'Private follows': 'Titkos követések',
+    'Convert': 'Átalakítás'
   }
 }

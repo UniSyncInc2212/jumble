@@ -1167,6 +1167,26 @@ export default {
     'Quoted message not loaded yet': 'پیام نقل‌شده هنوز بارگیری نشده است',
     Video: 'ویدیو',
     Audio: 'صدا',
-    'Group message from': 'پیام گروهی از'
+    'Group message from': 'پیام گروهی از',
+    'Follow user privately': 'دنبال‌کردن خصوصی',
+    'Follow user publicly': 'دنبال‌کردن عمومی',
+    'Follow privately by default': 'به‌صورت پیش‌فرض خصوصی دنبال کن',
+    'New follows will not appear on your public follow list': 'دنبال‌کردن‌های جدید در فهرست عمومی شما دیده نمی‌شوند',
+    'Convert public follows to private': 'تبدیل دنبال‌کردن‌های عمومی به خصوصی',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'همه کسانی را که عمومی دنبال می‌کنید به فهرست خصوصی رمزگذاری‌شده منتقل کنید',
+    'Convert public follows to private?': 'دنبال‌کردن‌های عمومی به خصوصی تبدیل شوند؟',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'فهرست عمومی فعلی شما از دید دیگران پنهان می‌شود. بعداً می‌توانید هر مورد را دوباره عمومی کنید.',
+    'Failed to follow privately': 'دنبال‌کردن خصوصی ناموفق بود',
+    'Failed to follow publicly': 'دنبال‌کردن عمومی ناموفق بود',
+    'Failed to unfollow': 'لغو دنبال‌کردن ناموفق بود',
+    'Failed to switch to public follow': 'تغییر به دنبال‌کردن عمومی ناموفق بود',
+    'Failed to switch to private follow': 'تغییر به دنبال‌کردن خصوصی ناموفق بود',
+    'Failed to convert public follows to private': 'تبدیل دنبال‌کردن‌های عمومی ناموفق بود',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'نمی‌توان دنبال‌کردن خصوصی را ذخیره کرد چون محتوای این فهرست هنوز نقشه رله قدیمی NIP-02 است.',
+    'Following privately': 'در حال دنبال‌کردن خصوصی',
+    'No public follows to convert': 'دنبال‌کردن عمومی برای تبدیل وجود ندارد',
+    'Converted {{count}} public follows to private': '{{count}} دنبال‌کردن عمومی به خصوصی تبدیل شد',
+    'Private follows': 'دنبال‌کردن‌های خصوصی',
+    'Convert': 'تبدیل'
   }
 }

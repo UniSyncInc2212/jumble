@@ -1173,6 +1173,26 @@ export default {
     'Quoted message not loaded yet': 'El mensaje citado aún no se ha cargado',
     Video: 'Vídeo',
     Audio: 'Audio',
-    'Group message from': 'Mensaje del grupo'
+    'Group message from': 'Mensaje del grupo',
+    'Follow user privately': 'Seguir en privado',
+    'Follow user publicly': 'Seguir en público',
+    'Follow privately by default': 'Seguir en privado de forma predeterminada',
+    'New follows will not appear on your public follow list': 'Los nuevos follows no aparecerán en tu lista pública',
+    'Convert public follows to private': 'Convertir follows públicos en privados',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Mover a todas las personas que sigues en público a tu lista privada cifrada',
+    'Convert public follows to private?': '¿Convertir follows públicos en privados?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Esto ocultará tu lista pública actual. Más adelante podrás volver a hacer público cada follow.',
+    'Failed to follow privately': 'Error al seguir en privado',
+    'Failed to follow publicly': 'Error al seguir en público',
+    'Failed to unfollow': 'Error al dejar de seguir',
+    'Failed to switch to public follow': 'Error al cambiar a follow público',
+    'Failed to switch to private follow': 'Error al cambiar a follow privado',
+    'Failed to convert public follows to private': 'Error al convertir follows públicos',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'No se pueden guardar follows privados porque esta lista todavía usa un mapa de relays NIP-02 antiguo en su contenido.',
+    'Following privately': 'Siguiendo en privado',
+    'No public follows to convert': 'No hay follows públicos para convertir',
+    'Converted {{count}} public follows to private': 'Se convirtieron {{count}} follows públicos en privados',
+    'Private follows': 'Follows privados',
+    'Convert': 'Convertir'
   }
 }

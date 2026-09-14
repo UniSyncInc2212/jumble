@@ -1152,6 +1152,26 @@ export default {
     'Quoted message not loaded yet': 'لم يتم تحميل الرسالة المقتبسة بعد',
     Video: 'فيديو',
     Audio: 'صوت',
-    'Group message from': 'رسالة جماعية من'
+    'Group message from': 'رسالة جماعية من',
+    'Follow user privately': 'متابعة بشكل خاص',
+    'Follow user publicly': 'متابعة بشكل علني',
+    'Follow privately by default': 'المتابعة بشكل خاص افتراضيًا',
+    'New follows will not appear on your public follow list': 'لن تظهر المتابعات الجديدة في قائمة المتابعة العلنية',
+    'Convert public follows to private': 'تحويل المتابعات العلنية إلى خاصة',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'انقل كل من تتابعهم علنًا إلى قائمة المتابعة الخاصة المشفرة',
+    'Convert public follows to private?': 'تحويل المتابعات العلنية إلى خاصة؟',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'سيُخفي قائمة المتابعة العلنية الحالية عن الآخرين. يمكنك لاحقًا إعادة أي متابعة إلى العلنية.',
+    'Failed to follow privately': 'فشلت المتابعة الخاصة',
+    'Failed to follow publicly': 'فشلت المتابعة العلنية',
+    'Failed to unfollow': 'فشل إلغاء المتابعة',
+    'Failed to switch to public follow': 'فشل التحويل إلى متابعة علنية',
+    'Failed to switch to private follow': 'فشل التحويل إلى متابعة خاصة',
+    'Failed to convert public follows to private': 'فشل تحويل المتابعات العلنية',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'لا يمكن حفظ المتابعات الخاصة لأن هذه القائمة ما زالت تستخدم خريطة مرحلات NIP-02 القديمة في محتواها.',
+    'Following privately': 'تتابع بشكل خاص',
+    'No public follows to convert': 'لا توجد متابعات علنية للتحويل',
+    'Converted {{count}} public follows to private': 'تم تحويل {{count}} من المتابعات العلنية إلى خاصة',
+    'Private follows': 'متابعات خاصة',
+    'Convert': 'تحويل'
   }
 }

@@ -3,6 +3,7 @@ import client from '@/services/client.service'
 import fayan from '@/services/fayan.service'
 import storage from '@/services/local-storage.service'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { useFollowList } from './FollowListProvider'
 import { useNostr } from './NostrProvider'
 
 type TUserTrustContext = {
@@ -30,6 +31,7 @@ const wotScoreMap = new Map<string, number>()
 
 export function UserTrustProvider({ children }: { children: React.ReactNode }) {
   const { pubkey: currentPubkey } = useNostr()
+  const { followingSet } = useFollowList()
   const [minTrustScore, setMinTrustScore] = useState(() => storage.getMinTrustScore())
   const [minTrustScoreMap, setMinTrustScoreMap] = useState<Record<string, number>>(() =>
     storage.getMinTrustScoreMap()
@@ -43,7 +45,10 @@ export function UserTrustProvider({ children }: { children: React.ReactNode }) {
     let cancelled = false
 
     const initWoT = async () => {
-      const followings = await client.fetchFollowings(currentPubkey, false)
+      const followings =
+        followingSet.size > 0
+          ? Array.from(followingSet)
+          : await client.fetchFollowings(currentPubkey, false)
       if (cancelled) return
       followings.forEach((pubkey) => {
         if (!wotScoreMap.has(pubkey)) wotScoreMap.set(pubkey, 0)
@@ -68,7 +73,7 @@ export function UserTrustProvider({ children }: { children: React.ReactNode }) {
     return () => {
       cancelled = true
     }
-  }, [currentPubkey])
+  }, [currentPubkey, followingSet])
 
   const isUserTrusted = useCallback(
     (pubkey: string) => {

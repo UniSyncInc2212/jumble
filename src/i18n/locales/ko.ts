@@ -1152,6 +1152,26 @@ export default {
     'Quoted message not loaded yet': '인용된 메시지가 아직 로드되지 않았습니다',
     Video: '동영상',
     Audio: '오디오',
-    'Group message from': '그룹 메시지 출처'
+    'Group message from': '그룹 메시지 출처',
+    'Follow user privately': '비공개로 팔로우',
+    'Follow user publicly': '공개로 팔로우',
+    'Follow privately by default': '기본적으로 비공개 팔로우',
+    'New follows will not appear on your public follow list': '새 팔로우는 공개 팔로우 목록에 나타나지 않습니다',
+    'Convert public follows to private': '공개 팔로우를 비공개로 전환',
+    'Move everyone you follow publicly onto your encrypted private follow list': '공개로 팔로우 중인 모든 사용자를 암호화된 비공개 목록으로 옮깁니다',
+    'Convert public follows to private?': '공개 팔로우를 비공개로 전환할까요?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': '현재 공개 팔로우 목록이 다른 사람에게 보이지 않습니다. 나중에 개별 팔로우를 다시 공개로 바꿀 수 있습니다.',
+    'Failed to follow privately': '비공개 팔로우에 실패했습니다',
+    'Failed to follow publicly': '공개 팔로우에 실패했습니다',
+    'Failed to unfollow': '언팔로우에 실패했습니다',
+    'Failed to switch to public follow': '공개 팔로우로 전환하지 못했습니다',
+    'Failed to switch to private follow': '비공개 팔로우로 전환하지 못했습니다',
+    'Failed to convert public follows to private': '공개 팔로우 전환에 실패했습니다',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': '이 팔로우 목록의 내용이 예전 NIP-02 릴레이 맵이라 비공개 팔로우를 저장할 수 없습니다.',
+    'Following privately': '비공개 팔로우 중',
+    'No public follows to convert': '전환할 공개 팔로우가 없습니다',
+    'Converted {{count}} public follows to private': '공개 팔로우 {{count}}명을 비공개로 전환했습니다',
+    'Private follows': '비공개 팔로우',
+    'Convert': '전환'
   }
 }

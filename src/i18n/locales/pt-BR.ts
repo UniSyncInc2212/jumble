@@ -1172,6 +1172,26 @@ export default {
     'Quoted message not loaded yet': 'A mensagem citada ainda não foi carregada',
     Video: 'Vídeo',
     Audio: 'Áudio',
-    'Group message from': 'Mensagem do grupo'
+    'Group message from': 'Mensagem do grupo',
+    'Follow user privately': 'Seguir em privado',
+    'Follow user publicly': 'Seguir em público',
+    'Follow privately by default': 'Seguir em privado por padrão',
+    'New follows will not appear on your public follow list': 'Novos follows não aparecerão na sua lista pública',
+    'Convert public follows to private': 'Converter follows públicos em privados',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Mover todos que você segue em público para a lista privada criptografada',
+    'Convert public follows to private?': 'Converter follows públicos em privados?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Isso ocultará sua lista pública atual. Depois você pode tornar follows individuais públicos de novo.',
+    'Failed to follow privately': 'Falha ao seguir em privado',
+    'Failed to follow publicly': 'Falha ao seguir em público',
+    'Failed to unfollow': 'Falha ao deixar de seguir',
+    'Failed to switch to public follow': 'Falha ao mudar para follow público',
+    'Failed to switch to private follow': 'Falha ao mudar para follow privado',
+    'Failed to convert public follows to private': 'Falha ao converter follows públicos',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Não é possível guardar follows privados porque esta lista ainda usa um mapa de relays NIP-02 antigo no conteúdo.',
+    'Following privately': 'Seguindo em privado',
+    'No public follows to convert': 'Não há follows públicos para converter',
+    'Converted {{count}} public follows to private': '{{count}} follows públicos convertidos em privados',
+    'Private follows': 'Follows privados',
+    'Convert': 'Converter'
   }
 }
