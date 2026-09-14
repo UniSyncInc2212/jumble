@@ -1,7 +1,7 @@
 import { MEDIA_AUTO_LOAD_POLICY, PROFILE_PICTURE_AUTO_LOAD_POLICY } from '@/constants'
 import storage from '@/services/local-storage.service'
 import { TMediaAutoLoadPolicy, TProfilePictureAutoLoadPolicy, TNsfwDisplayPolicy } from '@/types'
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 type TContentPolicyContext = {
   autoplay: boolean
@@ -29,6 +29,10 @@ type TContentPolicyContext = {
 
   mutedWords: string[]
   setMutedWords: (words: string[]) => void
+
+  hideFollowedOnRelaySets: Record<string, boolean>
+  isHideFollowedOnRelaySet: (id: string) => boolean
+  setHideFollowedOnRelaySet: (id: string, hide: boolean) => void
 }
 
 const ContentPolicyContext = createContext<TContentPolicyContext | undefined>(undefined)
@@ -54,6 +58,9 @@ export function ContentPolicyProvider({ children }: { children: React.ReactNode 
   )
   const [faviconUrlTemplate, setFaviconUrlTemplate] = useState(storage.getFaviconUrlTemplate())
   const [mutedWords, setMutedWords] = useState(storage.getMutedWords())
+  const [hideFollowedOnRelaySets, setHideFollowedOnRelaySets] = useState(
+    storage.getHideFollowedOnRelaySets()
+  )
   const [connectionType, setConnectionType] = useState((navigator as any).connection?.type)
 
   useEffect(() => {
@@ -127,6 +134,16 @@ export function ContentPolicyProvider({ children }: { children: React.ReactNode 
     setMutedWords(words)
   }
 
+  const isHideFollowedOnRelaySet = useCallback(
+    (id: string) => hideFollowedOnRelaySets[id] === true,
+    [hideFollowedOnRelaySets]
+  )
+
+  const updateHideFollowedOnRelaySet = useCallback((id: string, hide: boolean) => {
+    storage.setHideFollowedOnRelaySet(id, hide)
+    setHideFollowedOnRelaySets(storage.getHideFollowedOnRelaySets())
+  }, [])
+
   return (
     <ContentPolicyContext.Provider
       value={{
@@ -147,7 +164,10 @@ export function ContentPolicyProvider({ children }: { children: React.ReactNode 
         faviconUrlTemplate,
         setFaviconUrlTemplate: updateFaviconUrlTemplate,
         mutedWords,
-        setMutedWords: updateMutedWords
+        setMutedWords: updateMutedWords,
+        hideFollowedOnRelaySets,
+        isHideFollowedOnRelaySet,
+        setHideFollowedOnRelaySet: updateHideFollowedOnRelaySet
       }}
     >
       {children}

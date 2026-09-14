@@ -1185,6 +1185,14 @@ export default {
     'Quoted message not loaded yet': 'Zitierte Nachricht noch nicht geladen',
     Video: 'Video',
     Audio: 'Audio',
-    'Group message from': 'Gruppennachricht aus'
+    'Group message from': 'Gruppennachricht aus',
+    'Hide posts from people I follow': 'Beiträge von Personen ausblenden, denen ich folge',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'Beim Durchsuchen dieses Relay-Sets Notizen von Konten ausblenden, denen du bereits folgst, damit du neue Personen entdecken kannst.',
+    'Hide followed users on relay sets': 'Gefolgte Nutzer in Relay-Sets ausblenden',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Wähle, in welchen Relay-Sets Notizen von Personen ausgeblendet werden, denen du bereits folgst. Nützlich für Sprach- oder Entdeckungs-Feeds.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Erstelle in den Relay-Einstellungen ein Relay-Set, um diesen Filter zu nutzen.'
   }
 }

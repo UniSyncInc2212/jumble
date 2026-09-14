@@ -1165,6 +1165,14 @@ export default {
     'Quoted message not loaded yet': 'उद्धृत संदेश अभी लोड नहीं हुआ है',
     Video: 'वीडियो',
     Audio: 'ऑडियो',
-    'Group message from': 'इस समूह से संदेश'
+    'Group message from': 'इस समूह से संदेश',
+    'Hide posts from people I follow': 'जिन लोगों को मैं फ़ॉलो करता हूँ उनकी पोस्ट छिपाएँ',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'इस रिले सेट को देखते समय, जिन खातों को आप पहले से फ़ॉलो करते हैं उनकी नोट्स छिपाएँ ताकि आप नए लोगों को खोज सकें।',
+    'Hide followed users on relay sets': 'रिले सेट में फ़ॉलो किए गए उपयोगकर्ताओं को छिपाएँ',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'चुनें कि किन रिले सेट में उन लोगों की नोट्स छिपानी हैं जिन्हें आप पहले से फ़ॉलो करते हैं। भाषा या खोज फ़ीड के लिए उपयोगी।',
+    'Create a relay set in Relay settings to use this filter.':
+      'इस फ़िल्टर का उपयोग करने के लिए रिले सेटिंग्स में एक रिले सेट बनाएँ।'
   }
 }

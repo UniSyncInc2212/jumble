@@ -1152,6 +1152,14 @@ export default {
     'Quoted message not loaded yet': '인용된 메시지가 아직 로드되지 않았습니다',
     Video: '동영상',
     Audio: '오디오',
-    'Group message from': '그룹 메시지 출처'
+    'Group message from': '그룹 메시지 출처',
+    'Hide posts from people I follow': '내가 팔로우하는 사람의 게시물 숨기기',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      '이 릴레이 세트를 볼 때 이미 팔로우한 계정의 노트를 숨겨 새로운 사람을 발견할 수 있습니다.',
+    'Hide followed users on relay sets': '릴레이 세트에서 팔로우한 사용자 숨기기',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      '이미 팔로우한 사람의 노트를 숨길 릴레이 세트를 선택하세요. 언어 피드나 발견용 피드에 유용합니다.',
+    'Create a relay set in Relay settings to use this filter.':
+      '이 필터를 사용하려면 릴레이 설정에서 릴레이 세트를 만드세요.'
   }
 }

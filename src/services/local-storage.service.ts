@@ -108,6 +108,7 @@ class LocalStorageService {
   private dmBackwardCursorMap: Record<string, number> = {}
   private processedSyncRequestIds: TProcessedSyncRequestIdMap = {}
   private disableNotificationSync: boolean = false
+  private hideFollowedOnRelaySets: Record<string, boolean> = {}
 
   constructor() {
     if (!LocalStorageService.instance) {
@@ -591,6 +592,26 @@ class LocalStorageService {
 
     this.disableNotificationSync =
       window.localStorage.getItem(StorageKey.DISABLE_NOTIFICATION_SYNC) === 'true'
+
+    const hideFollowedOnRelaySetsStr = window.localStorage.getItem(
+      StorageKey.HIDE_FOLLOWED_ON_RELAY_SETS
+    )
+    if (hideFollowedOnRelaySetsStr) {
+      try {
+        const parsed = JSON.parse(hideFollowedOnRelaySetsStr)
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          const next: Record<string, boolean> = {}
+          for (const [id, hide] of Object.entries(parsed)) {
+            if (typeof id === 'string' && typeof hide === 'boolean') {
+              next[id] = hide
+            }
+          }
+          this.hideFollowedOnRelaySets = next
+        }
+      } catch {
+        // Invalid JSON, use default
+      }
+    }
 
     // Clean up deprecated data
     window.localStorage.removeItem(StorageKey.PINNED_PUBKEYS)
@@ -1503,6 +1524,29 @@ class LocalStorageService {
   setDisableNotificationSync(disable: boolean) {
     this.disableNotificationSync = disable
     window.localStorage.setItem(StorageKey.DISABLE_NOTIFICATION_SYNC, disable.toString())
+  }
+
+  getHideFollowedOnRelaySets() {
+    return this.hideFollowedOnRelaySets
+  }
+
+  isHideFollowedOnRelaySet(id: string) {
+    return this.hideFollowedOnRelaySets[id] === true
+  }
+
+  setHideFollowedOnRelaySet(id: string, hide: boolean) {
+    if (!id) return
+    if (hide) {
+      this.hideFollowedOnRelaySets = { ...this.hideFollowedOnRelaySets, [id]: true }
+    } else {
+      const next = { ...this.hideFollowedOnRelaySets }
+      delete next[id]
+      this.hideFollowedOnRelaySets = next
+    }
+    window.localStorage.setItem(
+      StorageKey.HIDE_FOLLOWED_ON_RELAY_SETS,
+      JSON.stringify(this.hideFollowedOnRelaySets)
+    )
   }
 }
 

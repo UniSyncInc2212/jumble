@@ -1170,6 +1170,14 @@ export default {
     'Quoted message not loaded yet': 'Az idézett üzenet még nem töltődött be',
     Video: 'Videó',
     Audio: 'Hang',
-    'Group message from': 'Csoportüzenet innen'
+    'Group message from': 'Csoportüzenet innen',
+    'Hide posts from people I follow': 'Az általam követett emberek bejegyzéseinek elrejtése',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'Ennek a csomópontlistának a böngészésekor rejtse el azoknak a fiókoknak a jegyzeteit, akiket már követsz, hogy új embereket fedezhess fel.',
+    'Hide followed users on relay sets': 'Követett felhasználók elrejtése a csomópontlistákon',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Válaszd ki, mely csomópontlisták rejtik el azoknak a jegyzeteit, akiket már követsz. Nyelvi vagy felfedező hírcsatornákhoz hasznos.',
+    'Create a relay set in Relay settings to use this filter.':
+      'A szűrő használatához hozz létre egy csomópontlistát a Csomópont beállításokban.'
   }
 }

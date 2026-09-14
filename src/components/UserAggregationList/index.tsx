@@ -58,6 +58,7 @@ const UserAggregationList = forwardRef<
     showRelayCloseReason?: boolean
     isPubkeyFeed?: boolean
     trustScoreThreshold?: number
+    filterFn?: (event: Event) => boolean
   }
 >(
   (
@@ -68,7 +69,8 @@ const UserAggregationList = forwardRef<
       areAlgoRelays = false,
       showRelayCloseReason = false,
       isPubkeyFeed = false,
-      trustScoreThreshold
+      trustScoreThreshold,
+      filterFn
     },
     ref
   ) => {
@@ -280,6 +282,9 @@ const UserAggregationList = forwardRef<
             ) {
               return null
             }
+            if (filterFn && !filterFn(evt)) {
+              return null
+            }
 
             return evt
           })
@@ -297,7 +302,8 @@ const UserAggregationList = forwardRef<
         isMentioningMutedUsers,
         meetsMinTrustScore,
         trustScoreThreshold,
-        since
+        since,
+        filterFn
       ]
     )
 
@@ -446,7 +452,7 @@ const UserAggregationList = forwardRef<
             </Button>
           </div>
         ) : (
-          <div className="mt-2 text-center text-sm text-muted-foreground">{t('no more notes')}</div>
+          <div className="text-muted-foreground mt-2 text-center text-sm">{t('no more notes')}</div>
         )}
       </div>
     )
@@ -456,8 +462,8 @@ const UserAggregationList = forwardRef<
         <div ref={topRef} className="scroll-mt-[calc(6rem+1px)]" />
         {showLoadingBar && <LoadingBar />}
         <div className="flex h-12 items-center justify-between gap-2 border-b ps-4 pe-1">
-          <div className="flex min-w-0 items-center gap-1.5 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">
+          <div className="text-muted-foreground flex min-w-0 items-center gap-1.5 text-sm">
+            <span className="text-foreground font-medium">
               {lastXDays === 1
                 ? t('Last 24 hours')
                 : t('Last {{count}} days', { count: lastXDays })}
@@ -469,7 +475,7 @@ const UserAggregationList = forwardRef<
           </div>
           <Button
             variant="ghost"
-            className="h-10 shrink-0 rounded-lg px-3 text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground h-10 shrink-0 rounded-lg px-3"
             disabled={showLoadingBar || !hasMore}
             onClick={handleLoadEarlier}
           >
@@ -553,7 +559,7 @@ function UserAggregationItem({
   return (
     <div
       className={cn(
-        'group relative flex cursor-pointer items-center gap-4 border-b px-4 py-3 transition-all duration-200 hover:bg-accent/30',
+        'group hover:bg-accent/30 relative flex cursor-pointer items-center gap-4 border-b px-4 py-3 transition-all duration-200',
         isNew && 'bg-primary/15 hover:bg-primary/20'
       )}
       onClick={onClick}
@@ -592,7 +598,7 @@ function UserAggregationItem({
         </div>
         <FormattedTimestamp
           timestamp={aggregation.lastEventTime}
-          className="text-sm text-muted-foreground"
+          className="text-muted-foreground text-sm"
         />
       </div>
 
@@ -616,7 +622,7 @@ function UserAggregationItem({
 
       <button
         className={cn(
-          'flex size-10 shrink-0 flex-col items-center justify-center rounded-full border border-primary/80 bg-primary/10 font-bold tabular-nums text-primary transition-colors hover:border-primary hover:bg-primary/20',
+          'border-primary/80 bg-primary/10 text-primary hover:border-primary hover:bg-primary/20 flex size-10 shrink-0 flex-col items-center justify-center rounded-full border font-bold tabular-nums transition-colors',
           !hasNewEvents &&
             'border-muted-foreground/80 bg-muted-foreground/10 text-muted-foreground/80 hover:border-muted-foreground hover:bg-muted-foreground/20 hover:text-muted-foreground'
         )}

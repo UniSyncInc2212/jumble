@@ -1157,6 +1157,14 @@ export default {
     'Quoted message not loaded yet': 'Quoted message not loaded yet',
     Video: 'Video',
     Audio: 'Audio',
-    'Group message from': 'Group message from'
+    'Group message from': 'Group message from',
+    'Hide posts from people I follow': 'Hide posts from people I follow',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.',
+    'Hide followed users on relay sets': 'Hide followed users on relay sets',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Create a relay set in Relay settings to use this filter.'
   }
 }

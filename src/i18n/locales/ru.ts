@@ -1173,6 +1173,14 @@ export default {
     'Quoted message not loaded yet': 'Цитируемое сообщение ещё не загружено',
     Video: 'Видео',
     Audio: 'Аудио',
-    'Group message from': 'Сообщение из группы'
+    'Group message from': 'Сообщение из группы',
+    'Hide posts from people I follow': 'Скрывать записи тех, на кого я подписан',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'При просмотре этого набора релеев скрывать заметки аккаунтов, на которые вы уже подписаны, чтобы находить новых людей.',
+    'Hide followed users on relay sets': 'Скрывать подписки в наборах релеев',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Выберите, в каких наборах релеев скрывать заметки людей, на которых вы уже подписаны. Полезно для языковых или ознакомительных лент.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Создайте набор релеев в настройках релеев, чтобы использовать этот фильтр.'
   }
 }

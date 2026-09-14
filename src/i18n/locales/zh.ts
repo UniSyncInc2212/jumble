@@ -1123,6 +1123,14 @@ export default {
     'Quoted message not loaded yet': '引用消息尚未加载',
     Video: '视频',
     Audio: '音频',
-    'Group message from': '群聊消息 · 来自'
+    'Group message from': '群聊消息 · 来自',
+    'Hide posts from people I follow': '隐藏我关注的人的帖子',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      '浏览此服务器组时，隐藏你已关注账号的笔记，以便发现新用户。',
+    'Hide followed users on relay sets': '在服务器组中隐藏已关注用户',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      '选择要隐藏已关注用户笔记的服务器组。适合语言或发现类动态。',
+    'Create a relay set in Relay settings to use this filter.':
+      '请先在服务器设置中创建服务器组，再使用此筛选。'
   }
 }
