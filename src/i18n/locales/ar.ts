@@ -1152,6 +1152,14 @@ export default {
     'Quoted message not loaded yet': 'لم يتم تحميل الرسالة المقتبسة بعد',
     Video: 'فيديو',
     Audio: 'صوت',
-    'Group message from': 'رسالة جماعية من'
+    'Group message from': 'رسالة جماعية من',
+    'Hide posts from people I follow': 'إخفاء منشورات الأشخاص الذين أتابعهم',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'عند تصفح مجموعة المرحلات هذه، أخفِ ملاحظات الحسابات التي تتابعها بالفعل حتى تكتشف أشخاصًا جددًا.',
+    'Hide followed users on relay sets': 'إخفاء المستخدمين المتابَعين في مجموعات المرحلات',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'اختر مجموعات المرحلات التي تخفي ملاحظات الأشخاص الذين تتابعهم بالفعل. مفيد لتغذيات اللغة أو الاكتشاف.',
+    'Create a relay set in Relay settings to use this filter.':
+      'أنشئ مجموعة مرحلات في إعدادات المرحلات لاستخدام هذا المرشح.'
   }
 }

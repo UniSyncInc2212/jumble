@@ -1169,6 +1169,14 @@ export default {
     'Quoted message not loaded yet': 'Alıntılanan mesaj henüz yüklenmedi',
     Video: 'Video',
     Audio: 'Ses',
-    'Group message from': 'Grup mesajı kaynağı'
+    'Group message from': 'Grup mesajı kaynağı',
+    'Hide posts from people I follow': 'Takip ettiğim kişilerin gönderilerini gizle',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'Bu röle setine bakarken, zaten takip ettiğin hesapların notlarını gizle ki yeni kişiler keşfedebilesin.',
+    'Hide followed users on relay sets': 'Röle setlerinde takip edilenleri gizle',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Hangi röle setlerinin zaten takip ettiğin kişilerin notlarını gizleyeceğini seç. Dil veya keşif akışları için kullanışlıdır.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Bu süzgeci kullanmak için Röle ayarlarında bir röle seti oluştur.'
   }
 }

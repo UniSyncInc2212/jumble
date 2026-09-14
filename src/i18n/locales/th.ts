@@ -1148,6 +1148,14 @@ export default {
     'Quoted message not loaded yet': 'ยังไม่ได้โหลดข้อความที่อ้างอิง',
     Video: 'วิดีโอ',
     Audio: 'เสียง',
-    'Group message from': 'ข้อความจากกลุ่ม'
+    'Group message from': 'ข้อความจากกลุ่ม',
+    'Hide posts from people I follow': 'ซ่อนโพสต์ของคนที่ฉันติดตาม',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'เมื่อเรียกดูชุดรีเลย์นี้ ให้ซ่อนโน้ตจากบัญชีที่คุณติดตามอยู่แล้ว เพื่อให้ค้นพบคนใหม่ได้',
+    'Hide followed users on relay sets': 'ซ่อนผู้ใช้ที่ติดตามในชุดรีเลย์',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'เลือกชุดรีเลย์ที่จะซ่อนโน้ตของคนที่คุณติดตามอยู่แล้ว มีประโยชน์สำหรับฟีดภาษาหรือการค้นพบ',
+    'Create a relay set in Relay settings to use this filter.':
+      'สร้างชุดรีเลย์ในการตั้งค่ารีเลย์เพื่อใช้ตัวกรองนี้'
   }
 }

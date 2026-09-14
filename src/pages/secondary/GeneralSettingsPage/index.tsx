@@ -2,11 +2,7 @@ import Emoji from '@/components/Emoji'
 import ExpressionPickerDialog from '@/components/ExpressionPickerDialog'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
-import {
-  SettingsGroup,
-  SettingsPageContainer,
-  SettingsRow
-} from '@/components/ui/settings'
+import { SettingsGroup, SettingsPageContainer, SettingsRow } from '@/components/ui/settings'
 import { Switch } from '@/components/ui/switch'
 import { MEDIA_AUTO_LOAD_POLICY, NSFW_DISPLAY_POLICY } from '@/constants'
 import { LocalizedLanguageNames, TLanguage } from '@/i18n'
@@ -21,6 +17,7 @@ import { RotateCcw } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import DefaultTrustScoreFilter from './DefaultTrustScoreFilter'
+import HideFollowedOnRelaySets from './HideFollowedOnRelaySets'
 import MutedWords from './MutedWords'
 
 const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
@@ -128,9 +125,7 @@ const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
             htmlFor="video-loop"
             title={t('Video loop')}
             description={t('Automatically replay videos when they end')}
-            control={
-              <Switch id="video-loop" checked={videoLoop} onCheckedChange={setVideoLoop} />
-            }
+            control={<Switch id="video-loop" checked={videoLoop} onCheckedChange={setVideoLoop} />}
           />
         </SettingsGroup>
 
@@ -168,6 +163,7 @@ const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
             }
           />
           <DefaultTrustScoreFilter />
+          <HideFollowedOnRelaySets />
           <MutedWords />
         </SettingsGroup>
 

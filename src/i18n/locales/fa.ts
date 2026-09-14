@@ -1167,6 +1167,14 @@ export default {
     'Quoted message not loaded yet': 'پیام نقل‌شده هنوز بارگیری نشده است',
     Video: 'ویدیو',
     Audio: 'صدا',
-    'Group message from': 'پیام گروهی از'
+    'Group message from': 'پیام گروهی از',
+    'Hide posts from people I follow': 'پنهان کردن نوشته‌های افرادی که دنبال می‌کنم',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'هنگام مرور این مجموعه رله، یادداشت‌های حساب‌هایی را که از قبل دنبال می‌کنید پنهان کنید تا افراد تازه‌ای پیدا کنید.',
+    'Hide followed users on relay sets': 'پنهان کردن کاربران دنبال‌شده در مجموعه‌های رله',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'انتخاب کنید کدام مجموعه‌های رله یادداشت‌های افرادی را که از قبل دنبال می‌کنید پنهان کنند. برای فیدهای زبانی یا کشف مفید است.',
+    'Create a relay set in Relay settings to use this filter.':
+      'برای استفاده از این فیلتر، در تنظیمات رله یک مجموعه رله بسازید.'
   }
 }

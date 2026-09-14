@@ -1124,6 +1124,14 @@ export default {
     'Quoted message not loaded yet': '引用訊息尚未載入',
     Video: '影片',
     Audio: '音訊',
-    'Group message from': '群聊訊息 · 來自'
+    'Group message from': '群聊訊息 · 來自',
+    'Hide posts from people I follow': '隱藏我關注的人的貼文',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      '瀏覽此伺服器組時，隱藏你已關注帳號的筆記，以便發現新使用者。',
+    'Hide followed users on relay sets': '在伺服器組中隱藏已關注使用者',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      '選擇要隱藏已關注使用者筆記的伺服器組。適合語言或探索類動態。',
+    'Create a relay set in Relay settings to use this filter.':
+      '請先在伺服器設定中建立伺服器組，再使用此篩選。'
   }
 }
