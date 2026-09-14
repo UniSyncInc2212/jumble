@@ -1295,6 +1295,30 @@ export default {
       '在寬螢幕單欄模式下顯示於 feed 旁。',
     'Hide this section': '關閉此區塊',
     Participants: '參與者',
-    'Reposts × 1 · Quotes × 2 · Loaded replies × 1': '轉發 × 1 · 引用 × 2 · 已載入回覆 × 1'
+    'Reposts × 1 · Quotes × 2 · Loaded replies × 1': '轉發 × 1 · 引用 × 2 · 已載入回覆 × 1',
+    'Follow user privately': '悄悄追蹤',
+    'Follow user publicly': '公開追蹤',
+    'Follow privately by default': '預設悄悄追蹤',
+    'New follows will not appear on your public follow list':
+      '新的追蹤不會出現在你的公開追蹤清單中',
+    'Convert public follows to private': '將公開追蹤轉為悄悄追蹤',
+    'Move everyone you follow publicly onto your encrypted private follow list':
+      '將所有公開追蹤的人移到加密的悄悄追蹤清單',
+    'Convert public follows to private?': '將公開追蹤轉為悄悄追蹤？',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.':
+      '這會對其他人隱藏你目前的公開追蹤清單。之後仍可將個別追蹤改回公開。',
+    'Failed to follow privately': '悄悄追蹤失敗',
+    'Failed to follow publicly': '公開追蹤失敗',
+    'Failed to unfollow': '取消追蹤失敗',
+    'Failed to switch to public follow': '切換為公開追蹤失敗',
+    'Failed to switch to private follow': '切換為悄悄追蹤失敗',
+    'Failed to convert public follows to private': '轉換公開追蹤失敗',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.':
+      '無法儲存悄悄追蹤，因為此追蹤清單內容仍是舊版 NIP-02 中繼對應。',
+    'Following privately': '悄悄追蹤中',
+    'No public follows to convert': '沒有可轉換的公開追蹤',
+    'Converted {{count}} public follows to private': '已將 {{count}} 個公開追蹤轉為悄悄追蹤',
+    'Private follows': '悄悄追蹤',
+    Convert: '轉換'
   }
 }

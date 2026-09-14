@@ -19,6 +19,7 @@ import { forwardRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import DefaultTrustScoreFilter from './DefaultTrustScoreFilter'
 import MutedWords from './MutedWords'
+import PrivateFollows from './PrivateFollows'
 
 const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
   const { t, i18n } = useTranslation()
@@ -133,6 +134,8 @@ const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
             control={<Switch id="video-loop" checked={videoLoop} onCheckedChange={setVideoLoop} />}
           />
         </SettingsGroup>
+
+        <PrivateFollows />
 
         <SettingsGroup title={t('Content filtering')}>
           <SettingsRow
