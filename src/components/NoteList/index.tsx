@@ -1,6 +1,7 @@
 import NewNotesButton from '@/components/NewNotesButton'
 import { Button } from '@/components/ui/button'
 import { SPAMMER_PERCENTILE_THRESHOLD } from '@/constants'
+import { useDocumentResume } from '@/hooks/useDocumentResume'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import {
   compareEvents,
@@ -15,6 +16,13 @@ import {
   sortRevisionOrderedFeedEventsDesc,
   sortRevisionOrderedFeedItemsDesc
 } from '@/lib/event'
+import {
+  clearFeedSnapshot,
+  createFeedSnapshotKey,
+  loadFeedSnapshot,
+  saveFeedSnapshot,
+  sinceFromFeedEvents
+} from '@/lib/feed-snapshot'
 import { isRelayDisconnectReason } from '@/lib/relay'
 import { tagNameEquals } from '@/lib/tag'
 import { mergeTimelines } from '@/lib/timeline'
@@ -93,15 +101,29 @@ const NoteList = forwardRef<
   ) => {
     const { t } = useTranslation()
     const active = usePageActive()
+    const resumeCount = useDocumentResume()
     const { startLogin } = useNostr()
     const { isSpammer, meetsMinTrustScore } = useUserTrust()
     const { mutePubkeySet } = useMuteList()
     const { hideContentMentioningMutedUsers, mutedWords } = useContentPolicy()
     const { isEventDeleted } = useDeletedEvent()
+    const snapshotKey = useMemo(
+      () =>
+        createFeedSnapshotKey({
+          subRequests,
+          showKinds,
+          variant: areAlgoRelays ? 'algo' : 'chrono'
+        }),
+      [JSON.stringify(subRequests), JSON.stringify(showKinds), areAlgoRelays]
+    )
     const [storedEvents, setStoredEvents] = useState<Event[]>([])
-    const [events, setEvents] = useState<Event[]>([])
-    const [newEvents, setNewEvents] = useState<Event[]>([])
-    const [initialLoading, setInitialLoading] = useState(true)
+    const [events, setEvents] = useState<Event[]>(() => loadFeedSnapshot(snapshotKey)?.events ?? [])
+    const [newEvents, setNewEvents] = useState<Event[]>(
+      () => loadFeedSnapshot(snapshotKey)?.newEvents ?? []
+    )
+    const [initialLoading, setInitialLoading] = useState(
+      () => !loadFeedSnapshot(snapshotKey)?.events.length
+    )
     const [filtering, setFiltering] = useState(false)
     const [timelineKey, setTimelineKey] = useState<string | undefined>(undefined)
     const [filteredNotes, setFilteredNotes] = useState<
@@ -123,6 +145,7 @@ const NoteList = forwardRef<
         : undefined
     const showNewNotesDirectlyRef = useRef(showNewNotesDirectly)
     showNewNotesDirectlyRef.current = showNewNotesDirectly
+    const persistedSnapshotKeyRef = useRef(snapshotKey)
 
     const pinnedEventHexIdSet = useMemo(() => {
       const set = new Set<string>()
@@ -374,24 +397,54 @@ const NoteList = forwardRef<
     useEffect(() => {
       if (!subRequests.length) return
 
+      if (refreshCount > 0) {
+        clearFeedSnapshot(snapshotKey)
+        sinceRef.current = undefined
+        setEvents([])
+        setStoredEvents([])
+        setNewEvents([])
+        setReachedTimelineEnd(false)
+        setInitialLoading(true)
+        return
+      }
+
+      const snapshot = loadFeedSnapshot(snapshotKey)
+      if (snapshot?.events.length || snapshot?.newEvents.length) {
+        setEvents(snapshot.events)
+        setNewEvents(snapshot.newEvents)
+        sinceRef.current = sinceFromFeedEvents(snapshot.newEvents, snapshot.events)
+        setReachedTimelineEnd(false)
+        setInitialLoading(false)
+        return
+      }
+
       sinceRef.current = undefined
       setEvents([])
       setStoredEvents([])
       setNewEvents([])
       setReachedTimelineEnd(false)
-    }, [JSON.stringify(subRequests), refreshCount, JSON.stringify(showKinds)])
+    }, [snapshotKey, refreshCount])
+
+    useEffect(() => {
+      const key = persistedSnapshotKeyRef.current
+      if (key === snapshotKey && (events.length || newEvents.length)) {
+        saveFeedSnapshot(key, { events, newEvents })
+      }
+      persistedSnapshotKeyRef.current = snapshotKey
+    }, [snapshotKey, events, newEvents])
 
     useEffect(() => {
       if (!subRequests.length || !active) return
 
       async function init() {
-        setInitialLoading(true)
+        const since = sinceRef.current
+        if (!since) {
+          setInitialLoading(true)
+        }
 
         if (showKinds?.length === 0 && subRequests.every(({ filter }) => !filter.kinds)) {
           return () => {}
         }
-
-        const since = sinceRef.current
 
         if (isPubkeyFeed) {
           const storedEvents = await client.getEventsFromIndexed({
@@ -512,7 +565,7 @@ const NoteList = forwardRef<
       return () => {
         promise.then((closer) => closer())
       }
-    }, [JSON.stringify(subRequests), refreshCount, JSON.stringify(showKinds), active])
+    }, [JSON.stringify(subRequests), refreshCount, JSON.stringify(showKinds), active, resumeCount])
 
     const handleLoadMore = useCallback(async () => {
       if (!timelineKey || areAlgoRelays) return false

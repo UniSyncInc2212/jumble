@@ -3,7 +3,15 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import UserAvatar, { SimpleUserAvatar, UserAvatarSkeleton } from '@/components/UserAvatar'
 import Username, { SimpleUsername } from '@/components/Username'
+import { useDocumentResume } from '@/hooks/useDocumentResume'
 import { getEventFeedTimestamp, isMentioningMutedUsers } from '@/lib/event'
+import {
+  clearFeedSnapshot,
+  createFeedSnapshotKey,
+  loadFeedSnapshot,
+  saveFeedSnapshot,
+  sinceFromFeedEvents
+} from '@/lib/feed-snapshot'
 import { toNote, toUserAggregationDetail } from '@/lib/link'
 import { isRelayDisconnectReason } from '@/lib/relay'
 import { mergeTimelines } from '@/lib/timeline'
@@ -76,6 +84,7 @@ const UserAggregationList = forwardRef<
   ) => {
     const { t } = useTranslation()
     const active = usePageActive()
+    const resumeCount = useDocumentResume()
     const { pubkey: currentPubkey, startLogin } = useNostr()
     const { push } = useSecondaryPage()
     const { mutePubkeySet } = useMuteList()
@@ -84,15 +93,28 @@ const UserAggregationList = forwardRef<
     const { hideContentMentioningMutedUsers } = useContentPolicy()
     const { isEventDeleted } = useDeletedEvent()
     const [since, setSince] = useState(() => dayjs().subtract(1, 'day').unix())
+    const snapshotKey = useMemo(
+      () =>
+        createFeedSnapshotKey({
+          subRequests,
+          showKinds,
+          variant: areAlgoRelays ? 'aggregation-algo' : 'aggregation'
+        }),
+      [JSON.stringify(subRequests), JSON.stringify(showKinds), areAlgoRelays]
+    )
     const [storedEvents, setStoredEvents] = useState<Event[]>([])
-    const [events, setEvents] = useState<Event[]>([])
+    const [events, setEvents] = useState<Event[]>(() => loadFeedSnapshot(snapshotKey)?.events ?? [])
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
-    const [newEvents, setNewEvents] = useState<Event[]>([])
+    const [newEvents, setNewEvents] = useState<Event[]>(
+      () => loadFeedSnapshot(snapshotKey)?.newEvents ?? []
+    )
     const [filteredNewEvents, setFilteredNewEvents] = useState<Event[]>([])
     const [newEventPubkeys, setNewEventPubkeys] = useState<Set<string>>(new Set())
     const [timelineKey, setTimelineKey] = useState<string | undefined>(undefined)
-    const [loading, setLoading] = useState(true)
-    const [showLoadingBar, setShowLoadingBar] = useState(true)
+    const [loading, setLoading] = useState(() => !loadFeedSnapshot(snapshotKey)?.events.length)
+    const [showLoadingBar, setShowLoadingBar] = useState(
+      () => !loadFeedSnapshot(snapshotKey)?.events.length
+    )
     const [refreshCount, setRefreshCount] = useState(0)
     const [showCount, setShowCount] = useState(SHOW_COUNT)
     const [hasMore, setHasMore] = useState(true)
@@ -108,6 +130,7 @@ const UserAggregationList = forwardRef<
       : events.length
         ? events[0].created_at + 1
         : undefined
+    const persistedSnapshotKeyRef = useRef(snapshotKey)
 
     const scrollToTop = (behavior: ScrollBehavior = 'instant') => {
       setTimeout(() => {
@@ -133,27 +156,59 @@ const UserAggregationList = forwardRef<
     useEffect(() => {
       if (!subRequests.length) return
 
+      if (refreshCount > 0) {
+        clearFeedSnapshot(snapshotKey)
+        sinceRef.current = undefined
+        setSince(dayjs().subtract(1, 'day').unix())
+        setStoredEvents([])
+        setEvents([])
+        setNewEvents([])
+        setHasMore(true)
+        setLoading(true)
+        return
+      }
+
+      const snapshot = loadFeedSnapshot(snapshotKey)
+      if (snapshot?.events.length || snapshot?.newEvents.length) {
+        setSince(dayjs().subtract(1, 'day').unix())
+        setEvents(snapshot.events)
+        setNewEvents(snapshot.newEvents)
+        sinceRef.current = sinceFromFeedEvents(snapshot.newEvents, snapshot.events)
+        setHasMore(true)
+        setLoading(false)
+        return
+      }
+
       sinceRef.current = undefined
       setSince(dayjs().subtract(1, 'day').unix())
       setStoredEvents([])
       setEvents([])
       setNewEvents([])
       setHasMore(true)
-    }, [feedId, refreshCount])
+    }, [feedId, snapshotKey, refreshCount])
+
+    useEffect(() => {
+      const key = persistedSnapshotKeyRef.current
+      if (key === snapshotKey && (events.length || newEvents.length)) {
+        saveFeedSnapshot(key, { events, newEvents })
+      }
+      persistedSnapshotKeyRef.current = snapshotKey
+    }, [snapshotKey, events, newEvents])
 
     useEffect(() => {
       if (!subRequests.length || !active) return
 
       async function init() {
-        setLoading(true)
+        const since = sinceRef.current
+        if (!since) {
+          setLoading(true)
+        }
 
         if (showKinds?.length === 0 && subRequests.every(({ filter }) => !filter.kinds)) {
           setLoading(false)
           setHasMore(false)
           return () => {}
         }
-
-        const since = sinceRef.current
 
         if (isPubkeyFeed) {
           const storedEvents = await client.getEventsFromIndexed({
@@ -224,7 +279,7 @@ const UserAggregationList = forwardRef<
       return () => {
         promise.then((closer) => closer())
       }
-    }, [feedId, refreshCount, active])
+    }, [feedId, refreshCount, active, resumeCount])
 
     useEffect(() => {
       if (loading || !hasMore || !timelineKey || !events.length) {
