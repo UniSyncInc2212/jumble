@@ -1165,6 +1165,26 @@ export default {
     'Quoted message not loaded yet': 'उद्धृत संदेश अभी लोड नहीं हुआ है',
     Video: 'वीडियो',
     Audio: 'ऑडियो',
-    'Group message from': 'इस समूह से संदेश'
+    'Group message from': 'इस समूह से संदेश',
+    'Follow user privately': 'निजी रूप से फ़ॉलो करें',
+    'Follow user publicly': 'सार्वजनिक रूप से फ़ॉलो करें',
+    'Follow privately by default': 'डिफ़ॉल्ट रूप से निजी फ़ॉलो करें',
+    'New follows will not appear on your public follow list': 'नए फ़ॉलो आपकी सार्वजनिक सूची में नहीं दिखेंगे',
+    'Convert public follows to private': 'सार्वजनिक फ़ॉलो को निजी बनाएँ',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'जिन लोगों को आप सार्वजनिक रूप से फ़ॉलो करते हैं उन्हें एन्क्रिप्टेड निजी सूची में ले जाएँ',
+    'Convert public follows to private?': 'सार्वजनिक फ़ॉलो को निजी बनाएँ?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'यह आपकी वर्तमान सार्वजनिक फ़ॉलो सूची छिपा देगा। बाद में अलग-अलग फ़ॉलो को फिर सार्वजनिक किया जा सकता है।',
+    'Failed to follow privately': 'निजी फ़ॉलो विफल',
+    'Failed to follow publicly': 'सार्वजनिक फ़ॉलो विफल',
+    'Failed to unfollow': 'अनफ़ॉलो विफल',
+    'Failed to switch to public follow': 'सार्वजनिक फ़ॉलो पर स्विच विफल',
+    'Failed to switch to private follow': 'निजी फ़ॉलो पर स्विच विफल',
+    'Failed to convert public follows to private': 'सार्वजनिक फ़ॉलो बदलना विफल',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'निजी फ़ॉलो सहेजे नहीं जा सकते क्योंकि इस सूची की सामग्री अभी भी पुराना NIP-02 रिले मैप है।',
+    'Following privately': 'निजी फ़ॉलो कर रहे हैं',
+    'No public follows to convert': 'बदलने के लिए कोई सार्वजनिक फ़ॉलो नहीं',
+    'Converted {{count}} public follows to private': '{{count}} सार्वजनिक फ़ॉलो को निजी बनाया गया',
+    'Private follows': 'निजी फ़ॉलो',
+    'Convert': 'बदलें'
   }
 }

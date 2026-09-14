@@ -1184,6 +1184,26 @@ export default {
     'Quoted message not loaded yet': 'Le message cité n’est pas encore chargé',
     Video: 'Vidéo',
     Audio: 'Audio',
-    'Group message from': 'Message du groupe'
+    'Group message from': 'Message du groupe',
+    'Follow user privately': 'Suivre en privé',
+    'Follow user publicly': 'Suivre en public',
+    'Follow privately by default': 'Suivre en privé par défaut',
+    'New follows will not appear on your public follow list': 'Les nouveaux follows n’apparaîtront pas dans votre liste publique',
+    'Convert public follows to private': 'Convertir les follows publics en privés',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Déplacer toutes les personnes suivies publiquement vers votre liste privée chiffrée',
+    'Convert public follows to private?': 'Convertir les follows publics en privés ?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Cela masquera votre liste de follows publique actuelle. Vous pourrez plus tard remettre des follows en public.',
+    'Failed to follow privately': 'Échec du follow privé',
+    'Failed to follow publicly': 'Échec du follow public',
+    'Failed to unfollow': 'Échec de l’unfollow',
+    'Failed to switch to public follow': 'Échec du passage en follow public',
+    'Failed to switch to private follow': 'Échec du passage en follow privé',
+    'Failed to convert public follows to private': 'Échec de la conversion des follows publics',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Impossible d’enregistrer des follows privés car cette liste utilise encore une carte de relais NIP-02 héritée.',
+    'Following privately': 'Suivi en privé',
+    'No public follows to convert': 'Aucun follow public à convertir',
+    'Converted {{count}} public follows to private': '{{count}} follows publics convertis en privés',
+    'Private follows': 'Follows privés',
+    'Convert': 'Convertir'
   }
 }

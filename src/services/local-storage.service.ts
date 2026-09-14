@@ -66,6 +66,7 @@ class LocalStorageService {
   private notificationListStyle: TNotificationStyle = NOTIFICATION_LIST_STYLE.DETAILED
   private mediaAutoLoadPolicy: TMediaAutoLoadPolicy = MEDIA_AUTO_LOAD_POLICY.ALWAYS
   private showLinkPreviews: boolean = true
+  private followPrivatelyByDefault: boolean = false
   private profilePictureAutoLoadPolicy: TProfilePictureAutoLoadPolicy =
     PROFILE_PICTURE_AUTO_LOAD_POLICY.ALWAYS
   private shownCreateWalletGuideToastPubkeys: Set<string> = new Set()
@@ -346,6 +347,8 @@ class LocalStorageService {
     }
 
     this.showLinkPreviews = window.localStorage.getItem(StorageKey.SHOW_LINK_PREVIEWS) !== 'false'
+    this.followPrivatelyByDefault =
+      window.localStorage.getItem(StorageKey.FOLLOW_PRIVATELY_BY_DEFAULT) === 'true'
 
     const profilePictureAutoLoadPolicy = window.localStorage.getItem(
       StorageKey.PROFILE_PICTURE_AUTO_LOAD_POLICY
@@ -1152,6 +1155,15 @@ class LocalStorageService {
   setShowLinkPreviews(show: boolean) {
     this.showLinkPreviews = show
     window.localStorage.setItem(StorageKey.SHOW_LINK_PREVIEWS, show.toString())
+  }
+
+  getFollowPrivatelyByDefault() {
+    return this.followPrivatelyByDefault
+  }
+
+  setFollowPrivatelyByDefault(followPrivately: boolean) {
+    this.followPrivatelyByDefault = followPrivately
+    window.localStorage.setItem(StorageKey.FOLLOW_PRIVATELY_BY_DEFAULT, followPrivately.toString())
   }
 
   setProfilePictureAutoLoadPolicy(policy: TProfilePictureAutoLoadPolicy) {

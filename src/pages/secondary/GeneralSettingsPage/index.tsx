@@ -2,11 +2,7 @@ import Emoji from '@/components/Emoji'
 import ExpressionPickerDialog from '@/components/ExpressionPickerDialog'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
-import {
-  SettingsGroup,
-  SettingsPageContainer,
-  SettingsRow
-} from '@/components/ui/settings'
+import { SettingsGroup, SettingsPageContainer, SettingsRow } from '@/components/ui/settings'
 import { Switch } from '@/components/ui/switch'
 import { MEDIA_AUTO_LOAD_POLICY, NSFW_DISPLAY_POLICY } from '@/constants'
 import { LocalizedLanguageNames, TLanguage } from '@/i18n'
@@ -22,6 +18,7 @@ import { forwardRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import DefaultTrustScoreFilter from './DefaultTrustScoreFilter'
 import MutedWords from './MutedWords'
+import PrivateFollows from './PrivateFollows'
 
 const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
   const { t, i18n } = useTranslation()
@@ -128,11 +125,11 @@ const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
             htmlFor="video-loop"
             title={t('Video loop')}
             description={t('Automatically replay videos when they end')}
-            control={
-              <Switch id="video-loop" checked={videoLoop} onCheckedChange={setVideoLoop} />
-            }
+            control={<Switch id="video-loop" checked={videoLoop} onCheckedChange={setVideoLoop} />}
           />
         </SettingsGroup>
+
+        <PrivateFollows />
 
         <SettingsGroup title={t('Content filtering')}>
           <SettingsRow

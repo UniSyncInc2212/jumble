@@ -107,7 +107,7 @@ type TNostrContext = {
   checkLogin: <T>(cb?: () => T) => Promise<T | void>
   updateRelayListEvent: (relayListEvent: Event) => Promise<void>
   updateProfileEvent: (profileEvent: Event) => Promise<void>
-  updateFollowListEvent: (followListEvent: Event) => Promise<void>
+  updateFollowListEvent: (followListEvent: Event, privateTags?: string[][]) => Promise<void>
   updateMuteListEvent: (muteListEvent: Event, privateTags: string[][]) => Promise<void>
   updateBookmarkListEvent: (bookmarkListEvent: Event) => Promise<void>
   updateFavoriteRelaysEvent: (favoriteRelaysEvent: Event) => Promise<void>
@@ -883,10 +883,13 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
     setProfile(getProfileFromEvent(newProfileEvent))
   }
 
-  const updateFollowListEvent = async (followListEvent: Event) => {
+  const updateFollowListEvent = async (followListEvent: Event, privateTags: string[][] = []) => {
     const newFollowListEvent = await indexedDb.putReplaceableEvent(followListEvent)
     if (newFollowListEvent.id !== followListEvent.id) return
 
+    if (privateTags.length > 0 || followListEvent.content) {
+      await indexedDb.putDecryptedContent(followListEvent.id, JSON.stringify(privateTags))
+    }
     setFollowListEvent(newFollowListEvent)
     await client.updateFollowListCache(newFollowListEvent)
   }

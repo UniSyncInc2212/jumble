@@ -1148,6 +1148,26 @@ export default {
     'Quoted message not loaded yet': 'ยังไม่ได้โหลดข้อความที่อ้างอิง',
     Video: 'วิดีโอ',
     Audio: 'เสียง',
-    'Group message from': 'ข้อความจากกลุ่ม'
+    'Group message from': 'ข้อความจากกลุ่ม',
+    'Follow user privately': 'ติดตามแบบส่วนตัว',
+    'Follow user publicly': 'ติดตามแบบสาธารณะ',
+    'Follow privately by default': 'ติดตามแบบส่วนตัวเป็นค่าเริ่มต้น',
+    'New follows will not appear on your public follow list': 'การติดตามใหม่จะไม่ปรากฏในรายการสาธารณะ',
+    'Convert public follows to private': 'แปลงการติดตามสาธารณะเป็นส่วนตัว',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'ย้ายทุกคนที่คุณติดตามแบบสาธารณะไปยังรายการส่วนตัวที่เข้ารหัส',
+    'Convert public follows to private?': 'แปลงการติดตามสาธารณะเป็นส่วนตัว?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'รายการติดตามสาธารณะปัจจุบันจะถูกซ่อนจากผู้อื่น ภายหลังคุณสามารถเปลี่ยนรายคนกลับเป็นสาธารณะได้',
+    'Failed to follow privately': 'ติดตามแบบส่วนตัวไม่สำเร็จ',
+    'Failed to follow publicly': 'ติดตามแบบสาธารณะไม่สำเร็จ',
+    'Failed to unfollow': 'เลิกติดตามไม่สำเร็จ',
+    'Failed to switch to public follow': 'สลับเป็นการติดตามสาธารณะไม่สำเร็จ',
+    'Failed to switch to private follow': 'สลับเป็นการติดตามส่วนตัวไม่สำเร็จ',
+    'Failed to convert public follows to private': 'แปลงการติดตามสาธารณะไม่สำเร็จ',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'ไม่สามารถบันทึกการติดตามส่วนตัวได้ เพราะรายการนี้ยังใช้แผนที่รีเลย์ NIP-02 แบบเก่าในเนื้อหา',
+    'Following privately': 'กำลังติดตามแบบส่วนตัว',
+    'No public follows to convert': 'ไม่มีการติดตามสาธารณะให้แปลง',
+    'Converted {{count}} public follows to private': 'แปลงการติดตามสาธารณะ {{count}} รายการเป็นส่วนตัวแล้ว',
+    'Private follows': 'การติดตามแบบส่วนตัว',
+    'Convert': 'แปลง'
   }
 }

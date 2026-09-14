@@ -1166,6 +1166,26 @@ export default {
     'Quoted message not loaded yet': '引用されたメッセージはまだ読み込まれていません',
     Video: '動画',
     Audio: '音声',
-    'Group message from': 'グループからのメッセージ'
+    'Group message from': 'グループからのメッセージ',
+    'Follow user privately': '非公開でフォロー',
+    'Follow user publicly': '公開でフォロー',
+    'Follow privately by default': 'デフォルトで非公開フォロー',
+    'New follows will not appear on your public follow list': '新しいフォローは公開フォローリストに表示されません',
+    'Convert public follows to private': '公開フォローを非公開に変換',
+    'Move everyone you follow publicly onto your encrypted private follow list': '公開フォロー中の全員を暗号化された非公開リストへ移します',
+    'Convert public follows to private?': '公開フォローを非公開に変換しますか？',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': '現在の公開フォローリストが他の人から見えなくなります。後から個別に公開へ戻すこともできます。',
+    'Failed to follow privately': '非公開フォローに失敗しました',
+    'Failed to follow publicly': '公開フォローに失敗しました',
+    'Failed to unfollow': 'フォロー解除に失敗しました',
+    'Failed to switch to public follow': '公開フォローへの切り替えに失敗しました',
+    'Failed to switch to private follow': '非公開フォローへの切り替えに失敗しました',
+    'Failed to convert public follows to private': '公開フォローの変換に失敗しました',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'このフォローリストの内容が旧来の NIP-02 リレーマップのままのため、非公開フォローを保存できません。',
+    'Following privately': '非公開フォロー中',
+    'No public follows to convert': '変換する公開フォローはありません',
+    'Converted {{count}} public follows to private': '{{count}} 件の公開フォローを非公開に変換しました',
+    'Private follows': '非公開フォロー',
+    'Convert': '変換'
   }
 }

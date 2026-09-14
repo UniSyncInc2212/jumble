@@ -1157,6 +1157,26 @@ export default {
     'Quoted message not loaded yet': 'Quoted message not loaded yet',
     Video: 'Video',
     Audio: 'Audio',
-    'Group message from': 'Group message from'
+    'Group message from': 'Group message from',
+    'Follow user privately': 'Follow user privately',
+    'Follow user publicly': 'Follow user publicly',
+    'Follow privately by default': 'Follow privately by default',
+    'New follows will not appear on your public follow list': 'New follows will not appear on your public follow list',
+    'Convert public follows to private': 'Convert public follows to private',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Move everyone you follow publicly onto your encrypted private follow list',
+    'Convert public follows to private?': 'Convert public follows to private?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'This will hide your current public follow list from other people. You can switch individual follows back to public later.',
+    'Failed to follow privately': 'Failed to follow privately',
+    'Failed to follow publicly': 'Failed to follow publicly',
+    'Failed to unfollow': 'Failed to unfollow',
+    'Failed to switch to public follow': 'Failed to switch to public follow',
+    'Failed to switch to private follow': 'Failed to switch to private follow',
+    'Failed to convert public follows to private': 'Failed to convert public follows to private',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.',
+    'Following privately': 'Following privately',
+    'No public follows to convert': 'No public follows to convert',
+    'Converted {{count}} public follows to private': 'Converted {{count}} public follows to private',
+    'Private follows': 'Private follows',
+    'Convert': 'Convert'
   }
 }

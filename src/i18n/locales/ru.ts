@@ -1173,6 +1173,26 @@ export default {
     'Quoted message not loaded yet': 'Цитируемое сообщение ещё не загружено',
     Video: 'Видео',
     Audio: 'Аудио',
-    'Group message from': 'Сообщение из группы'
+    'Group message from': 'Сообщение из группы',
+    'Follow user privately': 'Подписаться приватно',
+    'Follow user publicly': 'Подписаться публично',
+    'Follow privately by default': 'По умолчанию подписываться приватно',
+    'New follows will not appear on your public follow list': 'Новые подписки не появятся в вашем публичном списке',
+    'Convert public follows to private': 'Сделать публичные подписки приватными',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Перенести всех, на кого вы подписаны публично, в зашифрованный приватный список',
+    'Convert public follows to private?': 'Сделать публичные подписки приватными?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Текущий публичный список подписок станет скрыт. Отдельные подписки позже можно снова сделать публичными.',
+    'Failed to follow privately': 'Не удалось подписаться приватно',
+    'Failed to follow publicly': 'Не удалось подписаться публично',
+    'Failed to unfollow': 'Не удалось отписаться',
+    'Failed to switch to public follow': 'Не удалось сделать подписку публичной',
+    'Failed to switch to private follow': 'Не удалось сделать подписку приватной',
+    'Failed to convert public follows to private': 'Не удалось преобразовать публичные подписки',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Нельзя сохранить приватные подписки: в содержимом списка всё ещё карта реле NIP-02.',
+    'Following privately': 'Приватная подписка',
+    'No public follows to convert': 'Нет публичных подписок для преобразования',
+    'Converted {{count}} public follows to private': 'Преобразовано публичных подписок: {{count}}',
+    'Private follows': 'Приватные подписки',
+    'Convert': 'Преобразовать'
   }
 }

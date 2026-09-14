@@ -1185,6 +1185,26 @@ export default {
     'Quoted message not loaded yet': 'Zitierte Nachricht noch nicht geladen',
     Video: 'Video',
     Audio: 'Audio',
-    'Group message from': 'Gruppennachricht aus'
+    'Group message from': 'Gruppennachricht aus',
+    'Follow user privately': 'Privat folgen',
+    'Follow user publicly': 'Öffentlich folgen',
+    'Follow privately by default': 'Standardmäßig privat folgen',
+    'New follows will not appear on your public follow list': 'Neue Folgen erscheinen nicht in deiner öffentlichen Folgeliste',
+    'Convert public follows to private': 'Öffentliche Folgen in private umwandeln',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Alle öffentlich gefolgten Konten auf die verschlüsselte private Liste verschieben',
+    'Convert public follows to private?': 'Öffentliche Folgen in private umwandeln?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Deine aktuelle öffentliche Folgeliste wird für andere unsichtbar. Einzelne Folgen kannst du später wieder öffentlich machen.',
+    'Failed to follow privately': 'Privates Folgen fehlgeschlagen',
+    'Failed to follow publicly': 'Öffentliches Folgen fehlgeschlagen',
+    'Failed to unfollow': 'Entfolgen fehlgeschlagen',
+    'Failed to switch to public follow': 'Wechsel zum öffentlichen Folgen fehlgeschlagen',
+    'Failed to switch to private follow': 'Wechsel zum privaten Folgen fehlgeschlagen',
+    'Failed to convert public follows to private': 'Umwandlung öffentlicher Folgen fehlgeschlagen',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Private Folgen können nicht gespeichert werden, weil diese Folgeliste noch eine alte NIP-02-Relay-Map im Inhalt verwendet.',
+    'Following privately': 'Privat folgend',
+    'No public follows to convert': 'Keine öffentlichen Folgen zum Umwandeln',
+    'Converted {{count}} public follows to private': '{{count}} öffentliche Folgen in private umgewandelt',
+    'Private follows': 'Private Folgen',
+    'Convert': 'Umwandeln'
   }
 }
