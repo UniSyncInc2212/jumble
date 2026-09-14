@@ -15,6 +15,11 @@ import {
   minePow
 } from '@/lib/event'
 import { getProfileFromEvent, getRelayListFromEvent } from '@/lib/event-metadata'
+import {
+  ingestOwnSignedEvent,
+  subscribeOwnSignedEvents,
+  TOwnEventSyncPatch
+} from '@/lib/own-event-sync'
 import { formatPubkey, pubkeyToNpub } from '@/lib/pubkey'
 import { getDefaultRelayUrls } from '@/lib/relay'
 import { isSameAccount } from '@/lib/account'
@@ -131,7 +136,7 @@ export const useNostr = () => {
 
 export function NostrProvider({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation()
-  const { addDeletedEvent } = useDeletedEvent()
+  const { addDeletedEvent, addDeletedEventKeys } = useDeletedEvent()
   const [accounts, setAccounts] = useState<TAccountPointer[]>(
     storage.getAccounts().map((act) => ({ pubkey: act.pubkey, signerType: act.signerType }))
   )
@@ -157,6 +162,9 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
     resolve: (password: string) => void
     reject: () => void
   } | null>(null)
+  const handleOwnEventRef = useRef<(event: Event) => void>(() => {})
+  const accountPubkeyRef = useRef<string | null>(null)
+  accountPubkeyRef.current = account?.pubkey ?? null
 
   useEffect(() => {
     const init = async () => {
@@ -397,6 +405,25 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
       controller.abort()
     }
   }, [account])
+
+  // Join write URLs so we only restart the live self-sub when the relay set
+  // actually changes, not when a replayed kind 10002 produces a new object.
+  const ownEventWriteRelaysKey = (relayList?.write ?? []).join(',')
+
+  // One live subscription for every event this account signs. Applying updates
+  // here keeps follow/mute/profile/seen-at (and the rest) in sync across Jumble
+  // tabs and other clients, without a per-kind subscription.
+  useEffect(() => {
+    if (!account) return
+
+    const relays = (relayList?.write ?? []).concat(getDefaultRelayUrls()).slice(0, 4)
+    const closer = subscribeOwnSignedEvents(account.pubkey, relays, (event) =>
+      handleOwnEventRef.current(event)
+    )
+    return () => {
+      closer.close()
+    }
+  }, [account, ownEventWriteRelaysKey])
 
   useEffect(() => {
     if (!account) return
@@ -935,6 +962,58 @@ export function NostrProvider({ children }: { children: React.ReactNode }) {
       await indexedDb.putDecryptedContent(pinnedUsersEvent.id, JSON.stringify(privateTags))
     }
     setPinnedUsersEvent(newPinnedUsersEvent)
+  }
+
+  const applyOwnEventPatch = (patch: TOwnEventSyncPatch) => {
+    if (patch.profileEvent) {
+      setProfileEvent(patch.profileEvent)
+      setProfile(getProfileFromEvent(patch.profileEvent))
+    }
+    if (patch.relayListEvent) {
+      setRelayList(getRelayListFromEvent(patch.relayListEvent, storage.getFilterOutOnionRelays()))
+    }
+    if (patch.followListEvent) {
+      setFollowListEvent(patch.followListEvent)
+    }
+    if (patch.muteListEvent) {
+      setMuteListEvent(patch.muteListEvent)
+    }
+    if (patch.bookmarkListEvent) {
+      setBookmarkListEvent(patch.bookmarkListEvent)
+    }
+    if (patch.favoriteRelaysEvent) {
+      setFavoriteRelaysEvent(patch.favoriteRelaysEvent)
+    }
+    if (patch.userEmojiListEvent) {
+      setUserEmojiListEvent(patch.userEmojiListEvent)
+    }
+    if (patch.pinListEvent) {
+      setPinListEvent(patch.pinListEvent)
+    }
+    if (patch.pinnedUsersEvent) {
+      setPinnedUsersEvent(patch.pinnedUsersEvent)
+    }
+    if (patch.notificationsSeenAt !== undefined) {
+      setNotificationsSeenAt((prev) => Math.max(prev, patch.notificationsSeenAt!))
+      if (
+        account &&
+        patch.notificationsSeenAt > storage.getLastReadNotificationTime(account.pubkey)
+      ) {
+        storage.setLastReadNotificationTime(account.pubkey, patch.notificationsSeenAt)
+      }
+    }
+    if (patch.deletedEventKeys?.length) {
+      addDeletedEventKeys(patch.deletedEventKeys)
+    }
+  }
+
+  handleOwnEventRef.current = (event: Event) => {
+    const pubkey = account?.pubkey
+    if (!pubkey || event.pubkey !== pubkey) return
+    void ingestOwnSignedEvent(event, pubkey).then((patch) => {
+      if (!patch || accountPubkeyRef.current !== pubkey) return
+      applyOwnEventPatch(patch)
+    })
   }
 
   const updateNotificationsSeenAt = async (skipPublish = false) => {
