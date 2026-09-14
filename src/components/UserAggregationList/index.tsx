@@ -3,7 +3,15 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import UserAvatar, { SimpleUserAvatar, UserAvatarSkeleton } from '@/components/UserAvatar'
 import Username, { SimpleUsername } from '@/components/Username'
+import { useDocumentResume } from '@/hooks/useDocumentResume'
 import { getEventFeedTimestamp, isMentioningMutedUsers } from '@/lib/event'
+import {
+  clearFeedSnapshot,
+  createFeedSnapshotKey,
+  loadFeedSnapshot,
+  saveFeedSnapshot,
+  sinceFromFeedEvents
+} from '@/lib/feed-snapshot'
 import { toNote, toUserAggregationDetail } from '@/lib/link'
 import { isRelayDisconnectReason } from '@/lib/relay'
 import { mergeTimelines } from '@/lib/timeline'
@@ -74,6 +82,7 @@ const UserAggregationList = forwardRef<
   ) => {
     const { t } = useTranslation()
     const active = usePageActive()
+    const resumeCount = useDocumentResume()
     const { pubkey: currentPubkey, startLogin } = useNostr()
     const { push } = useSecondaryPage()
     const { mutePubkeySet } = useMuteList()
@@ -82,15 +91,28 @@ const UserAggregationList = forwardRef<
     const { hideContentMentioningMutedUsers } = useContentPolicy()
     const { isEventDeleted } = useDeletedEvent()
     const [since, setSince] = useState(() => dayjs().subtract(1, 'day').unix())
+    const snapshotKey = useMemo(
+      () =>
+        createFeedSnapshotKey({
+          subRequests,
+          showKinds,
+          variant: areAlgoRelays ? 'aggregation-algo' : 'aggregation'
+        }),
+      [JSON.stringify(subRequests), JSON.stringify(showKinds), areAlgoRelays]
+    )
     const [storedEvents, setStoredEvents] = useState<Event[]>([])
-    const [events, setEvents] = useState<Event[]>([])
+    const [events, setEvents] = useState<Event[]>(() => loadFeedSnapshot(snapshotKey)?.events ?? [])
     const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
-    const [newEvents, setNewEvents] = useState<Event[]>([])
+    const [newEvents, setNewEvents] = useState<Event[]>(
+      () => loadFeedSnapshot(snapshotKey)?.newEvents ?? []
+    )
     const [filteredNewEvents, setFilteredNewEvents] = useState<Event[]>([])
     const [newEventPubkeys, setNewEventPubkeys] = useState<Set<string>>(new Set())
     const [timelineKey, setTimelineKey] = useState<string | undefined>(undefined)
-    const [loading, setLoading] = useState(true)
-    const [showLoadingBar, setShowLoadingBar] = useState(true)
+    const [loading, setLoading] = useState(() => !loadFeedSnapshot(snapshotKey)?.events.length)
+    const [showLoadingBar, setShowLoadingBar] = useState(
+      () => !loadFeedSnapshot(snapshotKey)?.events.length
+    )
     const [refreshCount, setRefreshCount] = useState(0)
     const [showCount, setShowCount] = useState(SHOW_COUNT)
     const [hasMore, setHasMore] = useState(true)
@@ -106,6 +128,7 @@ const UserAggregationList = forwardRef<
       : events.length
         ? events[0].created_at + 1
         : undefined
+    const persistedSnapshotKeyRef = useRef(snapshotKey)
 
     const scrollToTop = (behavior: ScrollBehavior = 'instant') => {
       setTimeout(() => {
@@ -131,27 +154,59 @@ const UserAggregationList = forwardRef<
     useEffect(() => {
       if (!subRequests.length) return
 
+      if (refreshCount > 0) {
+        clearFeedSnapshot(snapshotKey)
+        sinceRef.current = undefined
+        setSince(dayjs().subtract(1, 'day').unix())
+        setStoredEvents([])
+        setEvents([])
+        setNewEvents([])
+        setHasMore(true)
+        setLoading(true)
+        return
+      }
+
+      const snapshot = loadFeedSnapshot(snapshotKey)
+      if (snapshot?.events.length || snapshot?.newEvents.length) {
+        setSince(dayjs().subtract(1, 'day').unix())
+        setEvents(snapshot.events)
+        setNewEvents(snapshot.newEvents)
+        sinceRef.current = sinceFromFeedEvents(snapshot.newEvents, snapshot.events)
+        setHasMore(true)
+        setLoading(false)
+        return
+      }
+
       sinceRef.current = undefined
       setSince(dayjs().subtract(1, 'day').unix())
       setStoredEvents([])
       setEvents([])
       setNewEvents([])
       setHasMore(true)
-    }, [feedId, refreshCount])
+    }, [feedId, snapshotKey, refreshCount])
+
+    useEffect(() => {
+      const key = persistedSnapshotKeyRef.current
+      if (key === snapshotKey && (events.length || newEvents.length)) {
+        saveFeedSnapshot(key, { events, newEvents })
+      }
+      persistedSnapshotKeyRef.current = snapshotKey
+    }, [snapshotKey, events, newEvents])
 
     useEffect(() => {
       if (!subRequests.length || !active) return
 
       async function init() {
-        setLoading(true)
+        const since = sinceRef.current
+        if (!since) {
+          setLoading(true)
+        }
 
         if (showKinds?.length === 0 && subRequests.every(({ filter }) => !filter.kinds)) {
           setLoading(false)
           setHasMore(false)
           return () => {}
         }
-
-        const since = sinceRef.current
 
         if (isPubkeyFeed) {
           const storedEvents = await client.getEventsFromIndexed({
@@ -222,7 +277,7 @@ const UserAggregationList = forwardRef<
       return () => {
         promise.then((closer) => closer())
       }
-    }, [feedId, refreshCount, active])
+    }, [feedId, refreshCount, active, resumeCount])
 
     useEffect(() => {
       if (loading || !hasMore || !timelineKey || !events.length) {
@@ -446,7 +501,7 @@ const UserAggregationList = forwardRef<
             </Button>
           </div>
         ) : (
-          <div className="mt-2 text-center text-sm text-muted-foreground">{t('no more notes')}</div>
+          <div className="text-muted-foreground mt-2 text-center text-sm">{t('no more notes')}</div>
         )}
       </div>
     )
@@ -456,8 +511,8 @@ const UserAggregationList = forwardRef<
         <div ref={topRef} className="scroll-mt-[calc(6rem+1px)]" />
         {showLoadingBar && <LoadingBar />}
         <div className="flex h-12 items-center justify-between gap-2 border-b ps-4 pe-1">
-          <div className="flex min-w-0 items-center gap-1.5 text-sm text-muted-foreground">
-            <span className="font-medium text-foreground">
+          <div className="text-muted-foreground flex min-w-0 items-center gap-1.5 text-sm">
+            <span className="text-foreground font-medium">
               {lastXDays === 1
                 ? t('Last 24 hours')
                 : t('Last {{count}} days', { count: lastXDays })}
@@ -469,7 +524,7 @@ const UserAggregationList = forwardRef<
           </div>
           <Button
             variant="ghost"
-            className="h-10 shrink-0 rounded-lg px-3 text-muted-foreground hover:text-foreground"
+            className="text-muted-foreground hover:text-foreground h-10 shrink-0 rounded-lg px-3"
             disabled={showLoadingBar || !hasMore}
             onClick={handleLoadEarlier}
           >
@@ -553,7 +608,7 @@ function UserAggregationItem({
   return (
     <div
       className={cn(
-        'group relative flex cursor-pointer items-center gap-4 border-b px-4 py-3 transition-all duration-200 hover:bg-accent/30',
+        'group hover:bg-accent/30 relative flex cursor-pointer items-center gap-4 border-b px-4 py-3 transition-all duration-200',
         isNew && 'bg-primary/15 hover:bg-primary/20'
       )}
       onClick={onClick}
@@ -592,7 +647,7 @@ function UserAggregationItem({
         </div>
         <FormattedTimestamp
           timestamp={aggregation.lastEventTime}
-          className="text-sm text-muted-foreground"
+          className="text-muted-foreground text-sm"
         />
       </div>
 
@@ -616,7 +671,7 @@ function UserAggregationItem({
 
       <button
         className={cn(
-          'flex size-10 shrink-0 flex-col items-center justify-center rounded-full border border-primary/80 bg-primary/10 font-bold tabular-nums text-primary transition-colors hover:border-primary hover:bg-primary/20',
+          'border-primary/80 bg-primary/10 text-primary hover:border-primary hover:bg-primary/20 flex size-10 shrink-0 flex-col items-center justify-center rounded-full border font-bold tabular-nums transition-colors',
           !hasNewEvents &&
             'border-muted-foreground/80 bg-muted-foreground/10 text-muted-foreground/80 hover:border-muted-foreground hover:bg-muted-foreground/20 hover:text-muted-foreground'
         )}

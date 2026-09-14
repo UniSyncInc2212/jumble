@@ -35,10 +35,7 @@ class FakePhysicalRelay {
     return 'authenticated'
   }
 
-  subscribe(
-    filters: Parameters<AbstractRelay['subscribe']>[0],
-    handlers: PhysicalHandlers
-  ) {
+  subscribe(filters: Parameters<AbstractRelay['subscribe']>[0], handlers: PhysicalHandlers) {
     const subscription = { filters, handlers, closed: false }
     this.subscriptions.push(subscription)
     return {
@@ -121,14 +118,14 @@ describe('ManagedRelay', () => {
     expect(onIdle).toHaveBeenCalledOnce()
   })
 
-  it('stops after three failed connection attempts and reports the failure to every REQ', async () => {
+  it('settles EOSE after three failed attempts but keeps REQs for a later wake', async () => {
     const { relay, instances } = createRelay({ connectionFailures: 3 })
     const firstEose = vi.fn()
     const secondEose = vi.fn()
     const firstClose = vi.fn()
     const secondClose = vi.fn()
-    relay.subscribe([{ kinds: [1] }], { oneose: firstEose, onclose: firstClose })
-    relay.subscribe([{ kinds: [2] }], { oneose: secondEose, onclose: secondClose })
+    const first = relay.subscribe([{ kinds: [1] }], { oneose: firstEose, onclose: firstClose })
+    const second = relay.subscribe([{ kinds: [2] }], { oneose: secondEose, onclose: secondClose })
 
     await flushPromises()
     await vi.advanceTimersByTimeAsync(1_000)
@@ -138,15 +135,15 @@ describe('ManagedRelay', () => {
     expect(instances).toHaveLength(3)
     expect(firstEose).toHaveBeenCalledOnce()
     expect(secondEose).toHaveBeenCalledOnce()
-    expect(firstClose).toHaveBeenCalledWith(
-      'relay connection unavailable after 3 attempts: connection failed'
-    )
-    expect(secondClose).toHaveBeenCalledWith(
-      'relay connection unavailable after 3 attempts: connection failed'
-    )
+    expect(firstClose).not.toHaveBeenCalled()
+    expect(secondClose).not.toHaveBeenCalled()
 
-    await vi.advanceTimersByTimeAsync(60_000)
-    expect(instances).toHaveLength(3)
+    await relay.checkHealth()
+    expect(instances).toHaveLength(4)
+    expect(instances[3].subscriptions).toHaveLength(2)
+
+    first.close()
+    second.close()
   })
 
   it('pauses connection attempts while offline and reconnects active REQs after resume', async () => {
@@ -175,9 +172,7 @@ describe('ManagedRelay', () => {
     await waitForSubscription(instances[1])
 
     expect(instances).toHaveLength(2)
-    expect(instances[1].subscriptions[0].filters).toEqual([
-      { kinds: [1059], '#p': ['recipient'] }
-    ])
+    expect(instances[1].subscriptions[0].filters).toEqual([{ kinds: [1059], '#p': ['recipient'] }])
     sub.close()
   })
 
