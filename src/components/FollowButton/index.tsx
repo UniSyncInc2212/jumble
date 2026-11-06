@@ -10,13 +10,13 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { Modal, ModalContent, ModalTrigger } from '@/components/ui/modal'
 import { useFollowList } from '@/providers/FollowListProvider'
 import { useNostr } from '@/providers/NostrProvider'
 import { useScreenSize } from '@/providers/ScreenSizeProvider'
@@ -137,9 +137,9 @@ export default function FollowButton({ pubkey }: { pubkey: string }) {
 
   if (isSmallScreen) {
     return (
-      <Drawer>
-        <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-        <DrawerContent>
+      <Modal>
+        <ModalTrigger asChild>{trigger}</ModalTrigger>
+        <ModalContent>
           <div className="py-2">
             {items.map((item) => (
               <Button
@@ -153,8 +153,8 @@ export default function FollowButton({ pubkey }: { pubkey: string }) {
               </Button>
             ))}
           </div>
-        </DrawerContent>
-      </Drawer>
+        </ModalContent>
+      </Modal>
     )
   }
 
