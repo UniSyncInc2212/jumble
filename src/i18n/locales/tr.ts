@@ -1177,6 +1177,26 @@ export default {
     'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
       'Hangi röle setlerinin zaten takip ettiğin kişilerin notlarını gizleyeceğini seç. Dil veya keşif akışları için kullanışlıdır.',
     'Create a relay set in Relay settings to use this filter.':
-      'Bu süzgeci kullanmak için Röle ayarlarında bir röle seti oluştur.'
+      'Bu süzgeci kullanmak için Röle ayarlarında bir röle seti oluştur.',
+    'Follow user privately': 'Gizli takip et',
+    'Follow user publicly': 'Herkese açık takip et',
+    'Follow privately by default': 'Varsayılan olarak gizli takip et',
+    'New follows will not appear on your public follow list': 'Yeni takipler herkese açık listenizde görünmez',
+    'Convert public follows to private': 'Açık takipleri gizliye çevir',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Herkese açık takip ettiğiniz herkesi şifreli gizli listeye taşıyın',
+    'Convert public follows to private?': 'Açık takipler gizliye çevrilsin mi?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Mevcut herkese açık takip listeniz gizlenir. Daha sonra tek tek tekrar herkese açık yapabilirsiniz.',
+    'Failed to follow privately': 'Gizli takip başarısız',
+    'Failed to follow publicly': 'Herkese açık takip başarısız',
+    'Failed to unfollow': 'Takipten çıkılamadı',
+    'Failed to switch to public follow': 'Herkese açık takibe geçilemedi',
+    'Failed to switch to private follow': 'Gizli takibe geçilemedi',
+    'Failed to convert public follows to private': 'Açık takipler dönüştürülemedi',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Gizli takipler kaydedilemiyor çünkü bu listenin içeriği hâlâ eski bir NIP-02 röle haritası.',
+    'Following privately': 'Gizli takip ediliyor',
+    'No public follows to convert': 'Dönüştürülecek herkese açık takip yok',
+    'Converted {{count}} public follows to private': '{{count}} herkese açık takip gizliye çevrildi',
+    'Private follows': 'Gizli takipler',
+    'Convert': 'Dönüştür'
   }
 }

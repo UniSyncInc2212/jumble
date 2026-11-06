@@ -14,6 +14,9 @@ type TUserPreferencesContext = {
   showLinkPreviews: boolean
   updateShowLinkPreviews: (show: boolean) => void
 
+  followPrivatelyByDefault: boolean
+  updateFollowPrivatelyByDefault: (followPrivately: boolean) => void
+
   sidebarCollapse: boolean
   updateSidebarCollapse: (collapse: boolean) => void
 
@@ -53,6 +56,9 @@ export function UserPreferencesProvider({ children }: { children: React.ReactNod
   )
   const [muteMedia, setMuteMedia] = useState(true)
   const [showLinkPreviews, setShowLinkPreviews] = useState(storage.getShowLinkPreviews())
+  const [followPrivatelyByDefault, setFollowPrivatelyByDefault] = useState(
+    storage.getFollowPrivatelyByDefault()
+  )
   const [sidebarCollapse, setSidebarCollapse] = useState(storage.getSidebarCollapse())
   const [enableSingleColumnLayout, setEnableSingleColumnLayout] = useState(
     storage.getEnableSingleColumnLayout()
@@ -89,6 +95,11 @@ export function UserPreferencesProvider({ children }: { children: React.ReactNod
   const updateShowLinkPreviews = (show: boolean) => {
     setShowLinkPreviews(show)
     storage.setShowLinkPreviews(show)
+  }
+
+  const updateFollowPrivatelyByDefault = (followPrivately: boolean) => {
+    setFollowPrivatelyByDefault(followPrivately)
+    storage.setFollowPrivatelyByDefault(followPrivately)
   }
 
   const updateEnableSingleColumnLayout = (enable: boolean) => {
@@ -131,6 +142,8 @@ export function UserPreferencesProvider({ children }: { children: React.ReactNod
         updateMuteMedia: setMuteMedia,
         showLinkPreviews,
         updateShowLinkPreviews,
+        followPrivatelyByDefault,
+        updateFollowPrivatelyByDefault,
         sidebarCollapse,
         updateSidebarCollapse,
         enableSingleColumnLayout: isSmallScreen ? true : enableSingleColumnLayout,

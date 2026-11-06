@@ -1185,6 +1185,26 @@ export default {
     'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
       'Wybierz, w których zestawach przekaźników ukrywać notatki osób, które już obserwujesz. Przydatne w kanałach językowych lub odkrywczych.',
     'Create a relay set in Relay settings to use this filter.':
-      'Utwórz zestaw przekaźników w ustawieniach przekaźników, aby użyć tego filtra.'
+      'Utwórz zestaw przekaźników w ustawieniach przekaźników, aby użyć tego filtra.',
+    'Follow user privately': 'Obserwuj prywatnie',
+    'Follow user publicly': 'Obserwuj publicznie',
+    'Follow privately by default': 'Domyślnie obserwuj prywatnie',
+    'New follows will not appear on your public follow list': 'Nowe obserwacje nie pojawią się na publicznej liście',
+    'Convert public follows to private': 'Zamień publiczne obserwacje na prywatne',
+    'Move everyone you follow publicly onto your encrypted private follow list': 'Przenieś wszystkie publiczne obserwacje na zaszyfrowaną listę prywatną',
+    'Convert public follows to private?': 'Zamienić publiczne obserwacje na prywatne?',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': 'Twoja obecna publiczna lista zostanie ukryta. Później możesz znów uczynić wybrane obserwacje publicznymi.',
+    'Failed to follow privately': 'Nie udało się obserwować prywatnie',
+    'Failed to follow publicly': 'Nie udało się obserwować publicznie',
+    'Failed to unfollow': 'Nie udało się przestać obserwować',
+    'Failed to switch to public follow': 'Nie udało się przełączyć na obserwację publiczną',
+    'Failed to switch to private follow': 'Nie udało się przełączyć na obserwację prywatną',
+    'Failed to convert public follows to private': 'Nie udało się zamienić publicznych obserwacji',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': 'Nie można zapisać prywatnych obserwacji, bo ta lista nadal ma starą mapę przekaźników NIP-02 w treści.',
+    'Following privately': 'Obserwujesz prywatnie',
+    'No public follows to convert': 'Brak publicznych obserwacji do zamiany',
+    'Converted {{count}} public follows to private': 'Zamieniono {{count}} publicznych obserwacji na prywatne',
+    'Private follows': 'Prywatne obserwacje',
+    'Convert': 'Zamień'
   }
 }

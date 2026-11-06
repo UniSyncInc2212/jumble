@@ -1131,6 +1131,26 @@ export default {
     'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
       '选择要隐藏已关注用户笔记的服务器组。适合语言或发现类动态。',
     'Create a relay set in Relay settings to use this filter.':
-      '请先在服务器设置中创建服务器组，再使用此筛选。'
+      '请先在服务器设置中创建服务器组，再使用此筛选。',
+    'Follow user privately': '悄悄关注',
+    'Follow user publicly': '公开关注',
+    'Follow privately by default': '默认悄悄关注',
+    'New follows will not appear on your public follow list': '新关注不会出现在你的公开关注列表中',
+    'Convert public follows to private': '将公开关注转为悄悄关注',
+    'Move everyone you follow publicly onto your encrypted private follow list': '将所有公开关注的人移到加密的悄悄关注列表',
+    'Convert public follows to private?': '将公开关注转为悄悄关注？',
+    'This will hide your current public follow list from other people. You can switch individual follows back to public later.': '这会向其他人隐藏你当前的公开关注列表。之后仍可将单个关注改回公开。',
+    'Failed to follow privately': '悄悄关注失败',
+    'Failed to follow publicly': '公开关注失败',
+    'Failed to unfollow': '取消关注失败',
+    'Failed to switch to public follow': '切换为公开关注失败',
+    'Failed to switch to private follow': '切换为悄悄关注失败',
+    'Failed to convert public follows to private': '转换公开关注失败',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.': '无法保存悄悄关注，因为该关注列表的内容仍是旧版 NIP-02 中继映射。',
+    'Following privately': '悄悄关注中',
+    'No public follows to convert': '没有可转换的公开关注',
+    'Converted {{count}} public follows to private': '已将 {{count}} 个公开关注转为悄悄关注',
+    'Private follows': '悄悄关注',
+    'Convert': '转换'
   }
 }
