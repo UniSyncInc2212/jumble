@@ -1178,6 +1178,14 @@ export default {
     Video: 'Wideo',
     Audio: 'Audio',
     'Group message from': 'Wiadomość z grupy',
+    'Hide posts from people I follow': 'Ukryj wpisy osób, które obserwuję',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'Przeglądając ten zestaw przekaźników, ukrywaj notatki kont, które już obserwujesz, aby odkrywać nowych ludzi.',
+    'Hide followed users on relay sets': 'Ukrywaj obserwowanych w zestawach przekaźników',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Wybierz, w których zestawach przekaźników ukrywać notatki osób, które już obserwujesz. Przydatne w kanałach językowych lub odkrywczych.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Utwórz zestaw przekaźników w ustawieniach przekaźników, aby użyć tego filtra.',
     'Follow user privately': 'Obserwuj prywatnie',
     'Follow user publicly': 'Obserwuj publicznie',
     'Follow privately by default': 'Domyślnie obserwuj prywatnie',

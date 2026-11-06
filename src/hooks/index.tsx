@@ -1,4 +1,5 @@
 export * from './useBlossomUrl'
+export * from './useDocumentResume'
 export * from './useDmSupport'
 export * from './useFetchEvent'
 export * from './useFetchFollowings'

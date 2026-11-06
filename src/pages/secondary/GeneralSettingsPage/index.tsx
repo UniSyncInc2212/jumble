@@ -17,6 +17,7 @@ import { RotateCcw } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import DefaultTrustScoreFilter from './DefaultTrustScoreFilter'
+import HideFollowedOnRelaySets from './HideFollowedOnRelaySets'
 import MutedWords from './MutedWords'
 import PrivateFollows from './PrivateFollows'
 
@@ -165,6 +166,7 @@ const GeneralSettingsPage = forwardRef(({ index }: { index?: number }, ref) => {
             }
           />
           <DefaultTrustScoreFilter />
+          <HideFollowedOnRelaySets />
           <MutedWords />
         </SettingsGroup>
 

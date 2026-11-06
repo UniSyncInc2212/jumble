@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,6 +9,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { useContentPolicy } from '@/providers/ContentPolicyProvider'
 import { useFavoriteRelays } from '@/providers/FavoriteRelaysProvider'
 import { useScreenSize } from '@/providers/ScreenSizeProvider'
 import { TRelaySet } from '@/types'
@@ -47,11 +50,11 @@ export default function RelaySet({ relaySet }: { relaySet: TRelaySet }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <div
-              className="cursor-grab touch-none rounded p-2 hover:bg-muted active:cursor-grabbing"
+              className="hover:bg-muted cursor-grab touch-none rounded p-2 active:cursor-grabbing"
               {...attributes}
               {...listeners}
             >
-              <GripVertical className="size-4 text-muted-foreground" />
+              <GripVertical className="text-muted-foreground size-4" />
             </div>
             <div className="flex items-center gap-2">
               <div className="flex h-6 w-6 shrink-0 items-center justify-center">
@@ -67,7 +70,12 @@ export default function RelaySet({ relaySet }: { relaySet: TRelaySet }) {
             <RelaySetOptions relaySet={relaySet} />
           </div>
         </div>
-        {expandedRelaySetId === relaySet.id && <RelayUrls relaySetId={relaySet.id} />}
+        {expandedRelaySetId === relaySet.id && (
+          <>
+            <RelayUrls relaySetId={relaySet.id} />
+            <HideFollowedOnRelaySetToggle relaySetId={relaySet.id} />
+          </>
+        )}
       </div>
     </div>
   )
@@ -111,7 +119,7 @@ function RelaySetName({ relaySet }: { relaySet: TRelaySet }) {
       </Button>
     </div>
   ) : (
-    <div className="flex h-8 select-none items-center font-semibold">{relaySet.name}</div>
+    <div className="flex h-8 items-center font-semibold select-none">{relaySet.name}</div>
   )
 }
 
@@ -125,13 +133,38 @@ function RelayUrlsExpandToggle({
   const { expandedRelaySetId, setExpandedRelaySetId } = useRelaySetsSettingComponent()
   return (
     <div
-      className="flex cursor-pointer items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+      className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-1 text-sm"
       onClick={() => setExpandedRelaySetId((pre) => (pre === relaySetId ? null : relaySetId))}
     >
       <div className="select-none">{children}</div>
       <ChevronDown
         size={16}
         className={`transition-transform duration-200 ${expandedRelaySetId === relaySetId ? 'rotate-180' : ''}`}
+      />
+    </div>
+  )
+}
+
+function HideFollowedOnRelaySetToggle({ relaySetId }: { relaySetId: string }) {
+  const { t } = useTranslation()
+  const { isHideFollowedOnRelaySet, setHideFollowedOnRelaySet } = useContentPolicy()
+  const switchId = `hide-followed-on-set-${relaySetId}`
+
+  return (
+    <div className="mt-3 flex items-start justify-between gap-3 border-t pt-3">
+      <Label htmlFor={switchId} className="min-w-0 cursor-pointer font-normal">
+        <div className="text-sm">{t('Hide posts from people I follow')}</div>
+        <div className="text-muted-foreground text-xs">
+          {t(
+            'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.'
+          )}
+        </div>
+      </Label>
+      <Switch
+        id={switchId}
+        className="mt-0.5 shrink-0"
+        checked={isHideFollowedOnRelaySet(relaySetId)}
+        onCheckedChange={(checked) => setHideFollowedOnRelaySet(relaySetId, checked)}
       />
     </div>
   )

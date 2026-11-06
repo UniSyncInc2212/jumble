@@ -2,7 +2,7 @@ import { AbstractRelay, SendingOnClosedConnection } from 'nostr-tools/abstract-r
 import { IRelay, TSubCloser, TSubHandlers } from '../types/relay-pool'
 
 const DEFAULT_CONNECTION_TIMEOUT = 10 * 1000
-const RETRY_DELAYS_MS = [1_000, 2_000]
+const RETRY_DELAYS_MS = [1_000, 2_000, 5_000, 15_000]
 const MAX_CONNECTION_ATTEMPTS = 3
 
 type LogicalSubscription = {
@@ -262,14 +262,36 @@ export class ManagedRelay implements IRelay {
 
     this.connectionFailures++
     const reason = error instanceof Error ? error.message : String(error)
-    if (this.connectionFailures >= MAX_CONNECTION_ATTEMPTS) {
+    if (this.connectionFailures >= MAX_CONNECTION_ATTEMPTS && isPermanentConnectionFailure(error)) {
       this.failSubscriptions(
         `relay connection unavailable after ${this.connectionFailures} attempts: ${reason}`
       )
       return
     }
 
+    // Sleep / flaky wake can exhaust the first burst of attempts. Settle EOSE
+    // so the UI is not stuck loading, but keep logical REQs so checkHealth or
+    // a later retry can restore them without a full page refresh.
+    if (this.connectionFailures === MAX_CONNECTION_ATTEMPTS) {
+      for (const logical of this.subscriptions) {
+        this.notifyEose(logical)
+      }
+    }
+
     this.scheduleRetry()
+  }
+
+  private failSubscriptions(reason: string) {
+    const subscriptions = Array.from(this.subscriptions)
+    for (const logical of subscriptions) {
+      const physicalSub = logical.physicalSub
+      this.notifyEose(logical)
+      this.removeSubscription(logical)
+      physicalSub?.close(reason)
+      logical.handlers.onclose?.(reason)
+    }
+    this.clearRetryTimer()
+    this.scheduleReleaseIfUnused()
   }
 
   private scheduleRetry(immediate = false) {
@@ -283,21 +305,6 @@ export class ManagedRelay implements IRelay {
       this.retryTimer = undefined
       this.connectForSubscriptions()
     }, delay)
-  }
-
-  private failSubscriptions(reason: string) {
-    const subscriptions = Array.from(this.subscriptions)
-    for (const logical of subscriptions) {
-      const physicalSub = logical.physicalSub
-      // ClientService aggregates EOSE across relays. Settle this logical REQ
-      // before onclose so one unavailable relay cannot block that aggregate.
-      this.notifyEose(logical)
-      this.removeSubscription(logical)
-      physicalSub?.close(reason)
-      logical.handlers.onclose?.(reason)
-    }
-    this.clearRetryTimer()
-    this.scheduleReleaseIfUnused()
   }
 
   private closeConnection() {
@@ -351,6 +358,10 @@ function cloneFilters(filters: Parameters<AbstractRelay['subscribe']>[0]) {
       Object.entries(filter).map(([key, value]) => [key, Array.isArray(value) ? [...value] : value])
     )
   ) as Parameters<AbstractRelay['subscribe']>[0]
+}
+
+function isPermanentConnectionFailure(error: unknown): boolean {
+  return error instanceof Error && error.message.startsWith('Insecure relay connection blocked')
 }
 
 function isBrokenPublishConnection(error: unknown): boolean {

@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useState } from 'react'
 
 type TDeletedEventContext = {
   addDeletedEvent: (event: NostrEvent) => void
+  addDeletedEventKeys: (keys: string[]) => void
   isEventDeleted: (event: NostrEvent) => boolean
 }
 
@@ -31,8 +32,17 @@ export function DeletedEventProvider({ children }: { children: React.ReactNode }
     setDeletedEventKeys((prev) => new Set(prev).add(getKey(event)))
   }
 
+  const addDeletedEventKeys = useCallback((keys: string[]) => {
+    if (keys.length === 0) return
+    setDeletedEventKeys((prev) => {
+      const next = new Set(prev)
+      keys.forEach((key) => next.add(key))
+      return next
+    })
+  }, [])
+
   return (
-    <DeletedEventContext.Provider value={{ addDeletedEvent, isEventDeleted }}>
+    <DeletedEventContext.Provider value={{ addDeletedEvent, addDeletedEventKeys, isEventDeleted }}>
       {children}
     </DeletedEventContext.Provider>
   )

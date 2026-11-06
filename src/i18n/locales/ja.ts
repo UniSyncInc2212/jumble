@@ -1167,6 +1167,14 @@ export default {
     Video: '動画',
     Audio: '音声',
     'Group message from': 'グループからのメッセージ',
+    'Hide posts from people I follow': 'フォロー中の人の投稿を非表示にする',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'このリレーセットを閲覧するとき、すでにフォローしているアカウントのノートを非表示にして、新しい人を見つけやすくします。',
+    'Hide followed users on relay sets': 'リレーセットでフォロー中のユーザーを非表示',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'すでにフォローしている人のノートを非表示にするリレーセットを選びます。言語フィードや発見用フィードに便利です。',
+    'Create a relay set in Relay settings to use this filter.':
+      'このフィルターを使うには、リレー設定でリレーセットを作成してください。',
     'Follow user privately': '非公開でフォロー',
     'Follow user publicly': '公開でフォロー',
     'Follow privately by default': 'デフォルトで非公開フォロー',

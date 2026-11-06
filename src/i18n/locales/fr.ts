@@ -1185,6 +1185,14 @@ export default {
     Video: 'Vidéo',
     Audio: 'Audio',
     'Group message from': 'Message du groupe',
+    'Hide posts from people I follow': 'Masquer les publications des personnes que je suis',
+    'When browsing this relay set, hide notes from accounts you already follow so you can discover new people.':
+      'En parcourant cet ensemble de relais, masquer les notes des comptes que vous suivez déjà pour découvrir de nouvelles personnes.',
+    'Hide followed users on relay sets': 'Masquer les abonnements dans les ensembles de relais',
+    'Choose which relay sets hide notes from people you already follow. Useful for language or discovery feeds.':
+      'Choisissez les ensembles de relais qui masquent les notes des personnes que vous suivez déjà. Utile pour les fils linguistiques ou de découverte.',
+    'Create a relay set in Relay settings to use this filter.':
+      'Créez un ensemble de relais dans les paramètres Relais pour utiliser ce filtre.',
     'Follow user privately': 'Suivre en privé',
     'Follow user publicly': 'Suivre en public',
     'Follow privately by default': 'Suivre en privé par défaut',
