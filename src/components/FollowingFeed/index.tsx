@@ -7,7 +7,7 @@ import { useNostr } from '@/providers/NostrProvider'
 import client from '@/services/client.service'
 import { TFeedSubRequest } from '@/types'
 import { Search, UserPlus } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function FollowingFeed() {
@@ -18,29 +18,24 @@ export default function FollowingFeed() {
   const [subRequests, setSubRequests] = useState<TFeedSubRequest[]>([])
   const [hasFollowings, setHasFollowings] = useState<boolean | null>(null)
   const [refreshCount, setRefreshCount] = useState(0)
-  const initializedPubkeyRef = useRef<string | null>(null)
 
   useEffect(() => {
-    if (initializedPubkeyRef.current === pubkey) return
-
+    let cancelled = false
     async function init() {
       if (!pubkey) {
-        initializedPubkeyRef.current = null
         setSubRequests([])
         setHasFollowings(null)
         return
       }
 
-      const followings = await client.fetchFollowings(pubkey)
+      const followings = Array.from(followingSet)
       setHasFollowings(followings.length > 0)
-      setSubRequests(await client.generateSubRequestsForPubkeys([pubkey, ...followings], pubkey))
-
-      if (followings.length) {
-        initializedPubkeyRef.current = pubkey
-      }
+      const requests = await client.generateSubRequestsForPubkeys([pubkey, ...followings], pubkey)
+      if (!cancelled) setSubRequests(requests)
     }
 
-    init()
+    init().catch(console.error)
+    return () => { cancelled = true }
   }, [pubkey, followingSet, refreshCount])
 
   // Show empty state when user has no followings
@@ -73,7 +68,6 @@ export default function FollowingFeed() {
       feedId={SPECIAL_FEED_ID.FOLLOWING}
       subRequests={subRequests}
       onRefresh={() => {
-        initializedPubkeyRef.current = null
         setRefreshCount((count) => count + 1)
       }}
       isPubkeyFeed
