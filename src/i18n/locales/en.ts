@@ -1336,6 +1336,28 @@ export default {
     'Share profile': 'Share profile',
     'Login with Android signer': 'Login with Android signer',
     'Profile followed by': 'Followed by',
-    'People you follow who also follow this user.': 'People you follow who also follow this user.'
+    'People you follow who also follow this user.': 'People you follow who also follow this user.',
+    'Follow user privately': 'Follow user privately',
+    'Follow user publicly': 'Follow user publicly',
+    'Convert public follows to private': 'Convert public follows to private',
+    'Move everyone you follow publicly onto your encrypted private follow list':
+      'Move everyone you follow publicly onto your encrypted private follow list',
+    'Convert public follows to private?': 'Convert public follows to private?',
+    'This removes follows from your latest public list. Previously published lists may remain available. Relays may infer follows from feed requests. You can switch individual follows back to public later.':
+      'This removes follows from your latest public list. Previously published lists may remain available. Relays may infer follows from feed requests. You can switch individual follows back to public later.',
+    'Failed to follow privately': 'Failed to follow privately',
+    'Failed to follow publicly': 'Failed to follow publicly',
+    'Failed to unfollow': 'Failed to unfollow',
+    'Failed to switch to public follow': 'Failed to switch to public follow',
+    'Failed to switch to private follow': 'Failed to switch to private follow',
+    'Failed to convert public follows to private': 'Failed to convert public follows to private',
+    'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.':
+      'Private follows cannot be stored because this follow list still uses a legacy NIP-02 relay map in its content.',
+    'Following privately': 'Following privately',
+    'No public follows to convert': 'No public follows to convert',
+    'Converted {{count}} public follows to private':
+      'Converted {{count}} public follows to private',
+    'Private follows': 'Private follows',
+    Convert: 'Convert'
   }
 }
